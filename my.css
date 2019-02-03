@@ -1,0 +1,288 @@
+body {
+  /*  background: url(images/fon.png) no-repeat 50% 0%;*/
+	-moz-background-size: auto; /* Firefox 3.6+ */
+    -webkit-background-size: auto; /* Safari 3.1+ � Chrome 4.0+ */
+    -o-background-size: auto; /* Opera 9.6+ */
+    background-size: auto; /* ����������� �������� */
+   
+}
+table.bordur {
+	border-collapse: collapse;
+}
+.bordur td {
+	border: 1px solid gray;
+	background: #FFFAF0;
+}
+.bordur th {
+	border: 1px solid black;
+	background: #B5B5B5;
+}
+hr {
+display: none;
+/*	background: url(images/hr.png) no-repeat center;
+	height: 28px;
+	border:none !important;
+   -moz-background-size: 100%; 
+   -webkit-background-size: 100%; 
+   -o-background-size: 100%; 
+   background-size: 100%; */
+}
+table.zmview{
+	border-collapse: collapse;
+        min-width: 300px;
+/*	border: 1px solid gray;*/
+}
+.zmview td{
+	border: 1px solid #c5c5c5;
+	font-size: 16px;
+	background: white; /*#FFFAF0;*/
+}
+.zmview th{
+	border: 1px solid white;
+	background: #a7c2f4;
+  /*  background: -moz-linear-gradient(bottom, black 0%, black 50%, black 51%,#f2f2f2 100%);
+    background: -webkit-linear-gradient(bottom, black 0%,black 50%,black 51%,#f2f2f2 100%);
+    background: -o-linear-gradient(bottom, black 0%,black 50%,black1 51%,#f2f2f2 100%);
+    background: -ms-linear-gradient(bottom, black 0%,black 50%,black 51%,#f2f2f2 100%);
+    background: linear-gradient(bottom, black 0%,black 50%,black 51%,#f2f2f2 100%);*/
+	color: black;
+}
+.zmview input{
+    font-size: 14px;
+}
+tr.yellow th,tr.green th,tr.vsogo th{
+    font-size: 18px;
+}
+tr.yellow input,tr.green input,tr.vsogo input{
+    font-weight: bold;
+    text-align: right;
+    font-size: 18px;
+}
+tr.yellow input{
+    color:red;
+}
+tr.green input{
+    color:green;
+}
+tr.green th{
+    background: lightgreen;
+}
+tr.yellow th{
+    background: yellow;
+}
+.zmview tr.alt td {
+    background: #f0f0f0;
+}
+.zmview tr.over td {
+background: #ffe860;
+    }
+table.view2{
+	border-collapse: collapse;
+	border: 1px solid gray;
+}
+.view2 td{
+	border: 1px solid gray;
+	background-color: #FFFAF0;
+	font-size: 14px;
+}
+.view2 th{
+	border: 1px solid black;
+	background-color: #B5B5B5;
+}
+td.men{
+	width: 160px;
+	vertical-align: top;
+}
+td.fn{
+	vertical-align: top;
+}
+.ac_results {
+	padding: 0px;
+	border: 1px solid WindowFrame;
+	background-color: Window;
+	overflow: hidden;
+}
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.ac_results iframe {
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+	filter:mask();
+	width:3000px;
+	height:3000px;
+}
+.ac_results li {
+	position:relative;
+    margin: 0px;
+	padding: 2px 5px;
+	cursor: pointer;
+	display: block;
+	width: 100%;
+	font: menu;
+	font-size: 12px;
+	overflow: hidden;
+}
+.ac_loading {
+	background : Window url('gif/indicator.gif') right center no-repeat;
+}
+.ac_over {
+	background-color: Highlight;
+	color: HighlightText;
+}
+#zapol {
+  top:10px;
+  width:100px;
+  font-family: "Trebuchet MS", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+#zapoly {
+  top:10px;
+  width:100px;
+  font-family: "Trebuchet MS", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+.qnt {
+  position:absolute;
+  top:2px;
+  right:10px;
+  font-size:0.8em;
+}
+select.sel_ad{
+  width: 200px;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 12pt;
+  color: #000;
+}
+#add_nas_punkt{
+	position: absolute;
+	background-color: #ffee8c;
+	left: 780px;
+	top: 90px;
+	width: 300px;
+	height: 240px;
+	border: 1px solid #999999;
+	padding: 8px;
+	font-size: 12px;
+	display: none;
+}
+#add_vul{
+	position: absolute;
+	background-color: #ffee8c;
+	left: 780px;
+	top: 90px;
+	width: 300px;
+	height: 280px;
+	border: 1px solid #999999;
+	padding: 8px;
+	font-size: 12px;
+	display: none;
+}
+.zal a{
+	display:block;
+	text-decoration: none;
+	color: black;
+	padding: 0px 5px 0px 5px;
+}
+td.zal a:hover{
+	display:block;
+	background: #7ed275;
+	padding: 0px 5px 0px 5px;
+	background-repeat:repeat;
+}
+.gran{
+	vertical-align: top;
+}
+.bad_balance td{
+	background: #ff4949;
+}
+.good_balance td{
+	background: lightgreen;
+}
+th.add_record{
+    background:none;
+    border:1px solid #c5c5c5;
+}
+#bar
+{
+background-color:#5fbbde;
+width:0px;
+height:16px;
+}
+#barbox
+{
+float:right; 
+height:16px; 
+background-color:#FFFFFF; 
+width:100px; 
+border:solid 2px #000; 
+margin-right:3px;
+-webkit-border-radius:5px;-moz-border-radius:5px;
+}
+#count
+{
+float:right; margin-right:8px; 
+font-family:'Georgia', Times New Roman, Times, serif; 
+font-size:16px; 
+font-weight:bold; 
+color:#666666
+}
+/*----moda window----*/
+#modal_form {
+	width: 250px; 
+	height: 100px; /* Рaзмеры дoлжны быть фиксирoвaны */
+	border-radius: 5px;
+	border: 3px #000 solid;
+	background: #fff;
+	position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
+	top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
+	left: 50%; /* пoлoвинa экрaнa слевa */
+	margin-top: -150px;
+	margin-left: -150px; /* тут вся мaгия центрoвки css, oтступaем влевo и вверх минус пoлoвину ширины и высoты сooтветственнo =) */
+	display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
+	opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
+	z-index: 5; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
+	padding: 20px 10px;
+}
+/* Кнoпкa зaкрыть для тех ктo в тaнке) */
+#modal_form #modal_close {
+	width: 21px;
+	height: 21px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	display: block;
+}
+/* Пoдлoжкa */
+#overlay {
+	z-index:3; /* пoдлoжкa дoлжнa быть выше слoев элементoв сaйтa, нo ниже слoя мoдaльнoгo oкнa */
+	position:fixed; /* всегдa перекрывaет весь сaйт */
+	background-color:#000; /* чернaя */
+	opacity:0.8; /* нo немнoгo прoзрaчнa */
+	-moz-opacity:0.8; /* фикс прозрачности для старых браузеров */
+	filter:alpha(opacity=80);
+	width:100%; 
+	height:100%; /* рaзмерoм вo весь экрaн */
+	top:0; /* сверху и слевa 0, oбязaтельные свoйствa! */
+	left:0;
+	cursor:pointer;
+	display:none; /* в oбычнoм сoстoянии её нет) */
+}
+.povorot {
+
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+}
