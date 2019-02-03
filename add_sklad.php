@@ -50,7 +50,9 @@ switch ($stat){
     $ath1=mysql_query("INSERT INTO store (SKOD,invoice,PROVIDER,PRODUCT,NUMBER,OPT,SUM,DT,STATUS) 
     VALUES('$skod','$invoice','$provider','$product','$klprod','$smopt','$smprod','$dt','1');");
     if(!$ath1){echo "Запис не внесений до БД";}
-    $ath=mysql_query("UPDATE `product` SET `cost`=IF(cost>'$smprod',cost,'$smprod') WHERE product.ID='$product' AND product.DL='1'");
+    $costprice=str_replace(",",".",$_POST['costprice']);
+    //$ath=mysql_query("UPDATE `product` SET `cost`=IF(cost>'$smprod',cost,'$smprod') WHERE product.ID='$product' AND product.DL='1'");
+    $ath=mysql_query("UPDATE `product` SET `cost`='$costprice' WHERE product.ID='$product' AND product.DL='1'");
     break;
     
     case 2:

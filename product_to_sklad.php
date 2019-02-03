@@ -70,20 +70,21 @@ function net_fokusa(eventObj){
 	data: 'kod='+ $("#skod").val(),
 	dataType: "html",
 	success: function(html){
-                var reply=html.split(":",4);
+                var reply=html.split(":",5);
                 if(reply[0]!=''){
                 $("#new_pr").fadeOut();
                 $("#old_pr").fadeIn(1500);
                 $("#sprod").val(reply[0]);
                 $("#group_pr").val(reply[2]);
                 $("#persent").val(reply[3]);
+                $("#costprice").val(reply[4]);
                 $("#group_pr").change(function(){adjustProduct();}).change();
                 $("#provider").focus();}
                     else{
                         $("#old_pr").fadeOut();
                         $("#new_pr").fadeIn(1500);
-						
-						$("#group_pr").val(reply[2]);
+			$("#group_pr").val(reply[2]);
+                        $("#costprice").val(reply[4]);
                     }
 		},
 		error: function(html){alert(html.error);}
@@ -208,6 +209,8 @@ mysql_free_result($atu);
 <td>Ціна за одиницю (розд.):</td>
 <td>
     <input type="text" id="smprod" name="smprod" value="" required/>
+    Ціна в каталозі
+    <input style="background-color: yellow;" type="text" id="costprice" name="costprice" size="6" value="" required/>
     <input type="hidden" name="stat" value="<?php echo $stat; ?>"/>
 </td>
 </tr>

@@ -9,6 +9,7 @@ $naim="";
 $id="";
 $gr="";
 $pr=0;
+$cost=0;
 
 $db=mysql_connect("localhost",$lg,$pas);
 if(!$db) echo "Не вiдбулося зєднання з базою даних"; 
@@ -29,6 +30,7 @@ if($skod!=""){
    $id=$aut['ID'];
    $gr=$aut['GROUP'];
    $pr=$aut['PR'];
+   $cost = $aut['cost'];
    }
 mysql_free_result($ath);}
 }
@@ -48,7 +50,7 @@ $ath=mysql_query("SELECT product.GROUP FROM product,store "
 mysql_free_result($ath);}
 }
 } 
-echo $id.':'.$naim.':'.$gr.':'.$pr;
+echo $id.':'.$naim.':'.$gr.':'.$pr.':'.$cost;
 
  if(mysql_close($db))
 {}
