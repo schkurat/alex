@@ -19,6 +19,8 @@ $smprod=str_replace(",",".",$_POST['smprod']);
 }
 if($stat == '4'){
 $smpover=str_replace(",",".",$_POST['smpover']);
+$time_back = $_POST['time_back'];
+$dt_back = date_bd($_POST['dt']).' '.$time_back;
 }
 $new_product=addslashes($_POST['new_product']);
 $group_pr=$_POST['group_pr'];
@@ -69,7 +71,7 @@ switch ($stat){
     
     case 4:
     $ath1=mysql_query("INSERT INTO store (SKOD,PROVIDER,PRODUCT,NUMBER,SUM,DT,STATUS) 
-    VALUES('$skod','$provider','$product','$klprod','$smpover','$dt','4');");
+    VALUES('$skod','$provider','$product','$klprod','$smpover','$dt_back','4');");
     if(!$ath1){echo "Запис не внесений до БД";} 
     break;
 }

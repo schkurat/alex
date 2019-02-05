@@ -36,7 +36,9 @@ function net_fokusa(eventObj){
 <tr>
 <td>Дата:</td>
 <td>
-<input type="text" class="datepicker" size="10" maxlength="10" name="dt" value="<?php echo date("d.m.Y"); ?>" /></td>
+<input type="text" class="datepicker" size="10" maxlength="10" name="dt" value="<?php echo date("d.m.Y"); ?>" />
+Час: <input type="text" size="8" maxlength="8" name="time_back" value="<?php echo date("H:i:s"); ?>" />
+</td>
 </tr>
 <tr>
 <td>Штрих-код: </td>
