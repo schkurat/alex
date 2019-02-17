@@ -10,20 +10,20 @@ $sql = "SELECT * FROM invoicespay WHERE id='$kl' AND dl='1'";
  $atu=mysql_query($sql);
   while($aut=mysql_fetch_array($atu))
  {
-  if($aut["dt"] != '0000-00-00') $dtmoney = german_date ($aut["dt"]); else $dtmoney = '';
+  if($aut["dt"] != '0000-00-00 00:00:00') $dtmoney = $aut["dt"]; else $dtmoney = '';
 ?>
-<script language="JavaScript">
+<!--<script language="JavaScript">
 $(function() {
 	$(".datepicker").datepicker("setDate", "<?php echo $dtmoney; ?>");
 	});
-</script>
+</script>-->
 <form action="update_pay.php" name="myform" method="post">
 <table align="" class="zmview">
 <tr><th colspan="2" style="font-size: 35px;"><b>Редагування виплати постачальнику</b></th></tr>
 <tr>
     <td>Дата розрахунку:</td>
     <td>
-        <input id="date" class="datepicker" name="dtmoney" type="text" size="10" maxlength="10" value="<?php echo german_date($aut["dtmoney"]); ?>" />
+        <input id="date" name="dtmoney" type="text" size="19"  value="<?php echo $dtmoney; ?>" />
         <input name="kl" type="hidden" value="<?php echo $kl; ?>"/>
         <input name="ivoice" type="hidden" value="<?php echo $ivoice; ?>"/>
     </td>

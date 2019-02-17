@@ -6,7 +6,7 @@ $pas=$_SESSION['PAS'];
 include("function.php");
 
 $kl=$_POST['kl'];
-$dt=date_bd($_POST['dtmoney']);
+$dt=$_POST['dtmoney']; //date_bd($_POST['dtmoney']);
 $smbal=str_replace(",",".",$_POST['smbal']);
 $smcash=str_replace(",",".",$_POST['smcash']);
 

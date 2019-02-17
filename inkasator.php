@@ -46,6 +46,17 @@ while($aut=mysql_fetch_array($atu))
 mysql_free_result($atu);
 /*------------------------*/
 
+/*----- stage #4.1----------*/
+$sql = "SELECT SUM(`sm_bal`) AS SM_BAL_INVOICE,SUM(`sm_cash`) AS SM_CASH_INVOICE FROM invoicespay WHERE dt>'$last_dt'";
+//echo $sql.'<br>';
+$atu = mysql_query($sql);
+while($aut=mysql_fetch_array($atu))
+{	
+    $sm_invoice = $aut["SM_BAL_INVOICE"] + $aut["CASH_INVOICE"];
+}
+mysql_free_result($atu);
+/*------------------------*/
+
 /*----- stage #5----------*/
 $sql = "SELECT SUM(`SUM`) AS POVER FROM store WHERE DT>'$last_dt' AND STATUS=4";
 //echo $sql.'<br>';
@@ -58,7 +69,7 @@ mysql_free_result($atu);
 /*------------------------*/
 
 /*----- stage #6----------*/
-$sm_n = $sm_n - $sm_pay - $pover;
+$sm_n = $sm_n - $sm_pay - $sm_invoice - $pover;
 /*------------------------*/
 
 /*----- stage #7----------*/

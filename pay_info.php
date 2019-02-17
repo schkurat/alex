@@ -12,7 +12,7 @@ $provider = $_GET['provider'];
 <tr>
 <td>Дата розрахунку:</td>
 <td>
-<input id="date" class="datepicker" name="dtmoney" type="text" size="10" maxlength="10" value="" />
+    <input id="date" name="dtmoney" type="text" size="19" value="<?php echo date("Y-m-d H:i:s"); ?>" /> <!--class="datepicker"-->
 <input name="kl" type="hidden" value="<?php echo $kl; ?>"/>
 </td>
 </tr>

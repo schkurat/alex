@@ -7,7 +7,7 @@ include("function.php");
 
 $kl=$_POST['kl'];
 
-$dt=date_bd($_POST['dtmoney']);
+$dt=$_POST['dtmoney'];
 $ivoice=$_POST['ivoice'];
 $provider=$_POST['provider'];
 $smbal=str_replace(",",".",$_POST['smbal']);
