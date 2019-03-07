@@ -47,12 +47,13 @@ mysql_free_result($atu);
 /*------------------------*/
 
 /*----- stage #4.1----------*/
-$sql = "SELECT SUM(`sm_bal`) AS SM_BAL_INVOICE,SUM(`sm_cash`) AS SM_CASH_INVOICE FROM invoicespay WHERE dt>'$last_dt'";
+//SUM(`sm_bal`) AS SM_BAL_INVOICE,
+$sql = "SELECT SUM(`sm_cash`) AS SM_CASH_INVOICE FROM invoicespay WHERE dt>'$last_dt'";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
 while($aut=mysql_fetch_array($atu))
 {	
-    $sm_invoice = $aut["SM_BAL_INVOICE"] + $aut["CASH_INVOICE"];
+    $sm_invoice = $aut["CASH_INVOICE"]; //$aut["SM_BAL_INVOICE"] +
 }
 mysql_free_result($atu);
 /*------------------------*/

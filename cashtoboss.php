@@ -18,13 +18,22 @@ while($aut=mysql_fetch_array($atu))
 }
 mysql_free_result($atu);
 
-$sql = "SELECT SUM(sm) AS vuplatu FROM payments WHERE dt>'$dl_last'";
-$atu=mysql_query($sql);
+//$sql = "SELECT SUM(sm) AS vuplatu FROM payments WHERE dt>'$dl_last'";
+//$atu=mysql_query($sql);
+//while($aut=mysql_fetch_array($atu))
+//{	
+//    $vuplatu = $aut["vuplatu"];
+//}
+//mysql_free_result($atu);
+
+$sql = "SELECT SUM(`sm_bal`) AS vuplatu FROM invoicespay WHERE dt>'$dl_last'";
+$atu = mysql_query($sql);
 while($aut=mysql_fetch_array($atu))
 {	
     $vuplatu = $aut["vuplatu"];
 }
 mysql_free_result($atu);
+
 
 $smboss = $nal - $vuplatu;
 ?>
