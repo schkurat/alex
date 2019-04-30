@@ -6,7 +6,7 @@
 	  return this.each(function(){
 		  if(this.tagName=="SELECT") {
 		      this.options.length = 0;
-		      $(this).attr("disabled","disabled");
+		      $(this).attr("disabled",true); //"disabled"
 		  }
 	  });
   }
