@@ -20,7 +20,7 @@ if(!$db) echo "Не вiдбулося зєднання з базою даних"
 if(isset($_POST['kod'])){
 $skod=$_POST['kod'];
 if($skod!=""){
-  $ath=mysql_query("SELECT product.*,group_product.PR FROM product,group_product WHERE product.SKOD=$skod "
+  $ath=mysql_query("SELECT product.*,group_product.PR FROM product,group_product WHERE product.SKOD='$skod' "
           . "AND product.GROUP=group_product.ID;");
   if($ath)
   {
