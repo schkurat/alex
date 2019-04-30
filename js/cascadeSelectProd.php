@@ -32,9 +32,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
             while($aut=mysql_fetch_array($ath))
             {
             if($aut['ID']!=$tv)
-            $pr3.=',{"value":"'.$aut['ID'].'","text":"'.$aut['NAIM'].'"}';
+            $pr3.=',{"value":"'.$aut['ID'].'","text":"'.htmlspecialchars($aut['NAIM'], ENT_QUOTES).'"}';
             else 
-            $pr2.='{"value":"'.$aut['ID'].'","text":"'.$aut['NAIM'].'"}';
+            $pr2.='{"value":"'.$aut['ID'].'","text":"'.htmlspecialchars($aut['NAIM'], ENT_QUOTES).'"}';
             }
 	}	
 	print $pr1.$pr2.$pr3.$pr4;
