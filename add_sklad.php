@@ -23,6 +23,7 @@ $time_back = $_POST['time_back'];
 $dt_back = date_bd($_POST['dt']).' '.$time_back;
 }
 $new_product=addslashes($_POST['new_product']);
+$new_product = trim($new_product);
 $group_pr=$_POST['group_pr'];
 
 $db=mysql_connect("localhost",$lg,$pas);
