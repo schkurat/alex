@@ -1,14 +1,13 @@
 <?php
 include_once "function.php";
 
-$dt_now=date("Y-m-d H:i:s");
+$dt_now = date("Y-m-d H:i:s");
 
 /*----- stage #1----------*/
 $sql = "SELECT * FROM earnings ORDER BY `DT` DESC LIMIT 1";
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
-    $last_dt=$aut["DT"];
+while ($aut = mysql_fetch_array($atu)) {
+    $last_dt = $aut["DT"];
 }
 mysql_free_result($atu);
 /*------------------------*/
@@ -17,9 +16,8 @@ mysql_free_result($atu);
 $sql = "SELECT SUM(`SUM`) AS SM_N FROM resipt WHERE DT>'$last_dt' AND (MONEY='Готівка' OR MONEY='')";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
-    $sm_n=$aut["SM_N"];
+while ($aut = mysql_fetch_array($atu)) {
+    $sm_n = $aut["SM_N"];
 }
 mysql_free_result($atu);
 /*------------------------*/
@@ -28,9 +26,8 @@ mysql_free_result($atu);
 $sql = "SELECT SUM(`SUM`) AS SM_K FROM resipt WHERE DT>'$last_dt' AND MONEY='Карта'";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
-    $sm_k=$aut["SM_K"];
+while ($aut = mysql_fetch_array($atu)) {
+    $sm_k = $aut["SM_K"];
 }
 mysql_free_result($atu);
 /*------------------------*/
@@ -39,9 +36,8 @@ mysql_free_result($atu);
 $sql = "SELECT SUM(`sm`) AS SM_PAY FROM payments WHERE dt>'$last_dt'";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
-    $sm_pay=$aut["SM_PAY"];
+while ($aut = mysql_fetch_array($atu)) {
+    $sm_pay = $aut["SM_PAY"];
 }
 mysql_free_result($atu);
 /*------------------------*/
@@ -51,8 +47,7 @@ mysql_free_result($atu);
 $sql = "SELECT SUM(`sm_cash`) AS SM_CASH_INVOICE FROM invoicespay WHERE dt>'$last_dt'";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
+while ($aut = mysql_fetch_array($atu)) {
     $sm_invoice = $aut["CASH_INVOICE"]; //$aut["SM_BAL_INVOICE"] +
 }
 mysql_free_result($atu);
@@ -62,9 +57,8 @@ mysql_free_result($atu);
 $sql = "SELECT SUM(`SUM`) AS POVER FROM store WHERE DT>'$last_dt' AND STATUS=4";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
-while($aut=mysql_fetch_array($atu))
-{	
-    $pover=$aut["POVER"];
+while ($aut = mysql_fetch_array($atu)) {
+    $pover = $aut["POVER"];
 }
 mysql_free_result($atu);
 /*------------------------*/
@@ -75,7 +69,31 @@ $sm_n = $sm_n - $sm_pay - $sm_invoice - $pover;
 
 /*----- stage #7----------*/
 $ath1 = mysql_query("INSERT INTO earnings (NAL,TERM,DT) VALUES('$sm_n','$sm_k','$dt_now');");
-    if(!$ath1){echo "Запис не внесений до БД";}
+if (!$ath1) {
+    echo "Запис не внесений до БД";
+}
 /*------------------------*/
-echo '<h1>Закриття каси виконано!</h1>';
+echo '<h1>Каса сформована!</h1>';
+
 ?>
+<form action="store.php" name="myform" method="get">
+    <table align="center" class="zmview">
+        <tr>
+            <th align="center" style="border: none;" colspan="2">Введіть фактичну виручку</th>
+        </tr>
+        <tr>
+            <td>Готівка:</td>
+            <td><input type="text" name="nal_fact" value=""></td>
+        </tr>
+        <tr>
+            <td>Термінал:</td>
+            <td><input type="text" name="term_fact" value=""></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <input name="filter" type="hidden" value="inkasator_fact"/>
+                <input name="Ok" type="submit" value="Зберегти" style="width: 82px;"/>
+            </td>
+        </tr>
+    </table>
+</form>

@@ -6,9 +6,9 @@
         <tr>
             <td align="center" style="border: none;">
                 <input name="filter" type="hidden" value="inkasator"/>
-                <input name="Ok" type="submit" value="Так" style="width: 82px;" />
+                <input name="Ok" type="submit" value="Так" style="width: 82px;"/>
                 <a href="store.php" style="text-decoration: none;">
-                    <input name="cancel" type="button" value="Відміна" style="width: 82px;" />
+                    <input name="cancel" type="button" value="Відміна" style="width: 82px;"/>
                 </a>
             </td>
         </tr>

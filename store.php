@@ -62,7 +62,7 @@ if($type == 'Продавці') {
     $view = 'style="display: none;"';
     $balance = '';
     $payments  = 'style="display: none;"';
-    $kasa = '';
+    $kasa = 'style="display: none;"';
     $revision = 'style="display: none;"';
     $dovidnuku = 'style="display: none;"';
     $nakladni = 'style="display: none;"';
@@ -116,7 +116,7 @@ if($type == 'Директор' or $type == 'Програміст') {
 			<!--<li><a href="store.php?filter=new_earnings">Додати</a></li>
 			<li><a href="store.php?filter=seach_earnings">Перегляд</a></li>-->
                         <!--<li <?php echo $payments; ?>><a href="store.php?filter=payments_info">Касові виплати</a></li>-->
-                        <li <?php echo $kasa; ?>><a href="store.php?filter=inkasator_info">Інкасація каси</a></li>
+                        <li><a href="store.php?filter=inkasator_info">Інкасація каси</a></li>
                         <li <?php echo $kasa; ?>><a href="store.php?filter=kasa_view">Перегляд каси</a></li>
                         <li <?php echo $vuruchka; ?>><a href="store.php?filter=cashtoboss">Здача каси</a></li>
 		</ul>
