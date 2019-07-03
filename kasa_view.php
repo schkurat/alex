@@ -1,15 +1,7 @@
 <?php
 include_once "function.php";
-
-//$p='
-//<table class="zmview">
-//<tr>
-//<th>Готівка розахунок</th>
-//<th>Термінал розахунок</th>
-//<th>Готівка фактична</th>
-//<th>Термінал фактично</th>
-//<th>Дата та час закриття</th>
-//</tr>';
+$npr = date_bd($_GET['npr']) . ' 00:00:00';
+$kpr = date_bd($_GET['kpr']) . ' 23:59:59';
 ?>
 <table class="table table-striped">
     <thead>
@@ -18,29 +10,24 @@ include_once "function.php";
         <th scope="col">Термінал розахунок</th>
         <th scope="col">Готівка фактична</th>
         <th scope="col">Термінал фактично</th>
+        <th scope="col">Всього</th>
         <th scope="col">Дата та час закриття</th>
     </tr>
     <thead>
     <tbody>
     <?php
-    $sql = "SELECT * FROM earnings ORDER BY `DT` DESC";
+    $sql = "SELECT * FROM earnings WHERE DT>='$npr' AND DT<='$kpr' ORDER BY `DT` DESC";
     //echo $sql;
     $atu = mysql_query($sql);
     while ($aut = mysql_fetch_array($atu)) {
 
-//$p.='<tr>
-//    <td align="right">'.$aut["NAL"].'</td>
-//    <td align="right">'.$aut["TERM"].'</td>
-//    <td align="right">'.$aut["NAL_FACT"].'</td>
-//    <td align="right">'.$aut["TERM_FACT"].'</td>
-//    <td align="right">'.$aut["DT"].'</td>
-//    </tr>';
         ?>
         <tr>
             <td><?= $aut["NAL"] ?></td>
             <td><?= $aut["TERM"] ?></td>
             <td><?= $aut["NAL_FACT"] ?></td>
             <td><?= $aut["TERM_FACT"] ?></td>
+            <td><?= round(($aut["NAL_FACT"] + $aut["TERM_FACT"]) - ($aut["NAL"] + $aut["TERM"]), 2) ?></td>
             <td><?= $aut["DT"] ?></td>
         </tr>
         <?php
@@ -49,5 +36,3 @@ include_once "function.php";
     ?>
     </tbody>
 </table>
-<!--$p.='</table>';-->
-<!--echo $p;-->
