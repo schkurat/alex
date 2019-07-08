@@ -83,17 +83,45 @@ echo '<h1>Каса сформована!</h1>';
         </tr>
         <tr>
             <td>Готівка:</td>
-            <td><input type="text" name="nal_fact" value=""></td>
+            <td><input type="text" id="nal_fact" name="nal_fact" value=""></td>
         </tr>
         <tr>
             <td>Термінал:</td>
-            <td><input type="text" name="term_fact" value=""></td>
+            <td><input type="text" id="term_fact" name="term_fact" value=""></td>
         </tr>
         <tr>
             <td align="center" colspan="2">
                 <input name="filter" type="hidden" value="inkasator_fact"/>
-                <input name="Ok" type="submit" value="Зберегти" style="width: 82px;"/>
+                <input name="Ok" type="submit" value="Зберегти" style="width: 82px;" onclick="return confirmKasa()"/>
             </td>
         </tr>
     </table>
 </form>
+<script language="JavaScript">
+    function confirmKasa() {
+        var nal_prog, term_prog, fact_nal, fact_ter, check_nal, check_term;
+
+        nal_prog = '<?= $sm_n ?>';
+        term_prog = '<?= $sm_k ?>';
+        fact_nal = $("#nal_fact").val();
+        fact_ter = $("#term_fact").val();
+        check_nal = fact_nal - nal_prog;
+        check_term = fact_ter - term_prog;
+
+        if (check_nal < -200) {
+            if (confirm("Сума нестачi готiвки " + check_nal + "грн. Продовжити?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (check_term < -100) {
+            if (confirm("Сума нестачi термiналу " + check_term + "грн. Продовжити?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
