@@ -67,8 +67,23 @@ mysql_free_result($atu);
 $sm_n = $sm_n - $sm_pay - $sm_invoice - $pover;
 /*------------------------*/
 
-/*----- stage #7----------*/
-$ath1 = mysql_query("INSERT INTO earnings (NAL,TERM,DT) VALUES('$sm_n','$sm_k','$dt_now');");
+/*----- stage #7 Salary ----------*/
+$sum_obor = 0;
+$worker = 1;
+$time_now = date('H');
+if ($time_now > 10) $worker = 2;
+
+$sql = "SELECT `OPT`,`SUM` FROM store,product WHERE DT>'$last_dt' AND DT<'$dt_now' AND store.PRODUCT=product.ID AND product.GROUP!=7 AND STATUS=2 AND DL='1'";
+$atu = mysql_query($sql);
+while ($aut = mysql_fetch_array($atu)) {
+    $sum_obor += ($aut["SUM"] - $aut["OPT"]);
+}
+mysql_free_result($atu);
+$salary = (($sum_obor * 3) / 100) / $worker;
+/*------------------------*/
+
+/*----- stage #8----------*/
+$ath1 = mysql_query("INSERT INTO earnings (NAL,TERM,SM_SALARY,SALARY,DT) VALUES('$sm_n','$sm_k','$sum_obor','$salary','$dt_now');");
 if (!$ath1) {
     echo "Запис не внесений до БД";
 }

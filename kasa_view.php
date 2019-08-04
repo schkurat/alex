@@ -11,6 +11,8 @@ $kpr = date_bd($_GET['kpr']) . ' 23:59:59';
         <th scope="col">Готівка фактична</th>
         <th scope="col">Термінал фактично</th>
         <th scope="col">Всього</th>
+        <th scope="col">Вал</th>
+        <th scope="col">Зарплата</th>
         <th scope="col">Дата та час закриття</th>
     </tr>
     <thead>
@@ -28,6 +30,8 @@ $kpr = date_bd($_GET['kpr']) . ' 23:59:59';
             <td><?= $aut["NAL_FACT"] ?></td>
             <td><?= $aut["TERM_FACT"] ?></td>
             <td><?= round(($aut["NAL_FACT"] + $aut["TERM_FACT"]) - ($aut["NAL"] + $aut["TERM"]), 2) ?></td>
+            <td><?= $aut["SM_SALARY"] ?></td>
+            <td><?= $aut["SALARY"] ?></td>
             <td><?= $aut["DT"] ?></td>
         </tr>
         <?php
