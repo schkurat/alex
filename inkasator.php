@@ -73,7 +73,7 @@ $worker = 1;
 $time_now = date('H');
 if ($time_now > 10) $worker = 2;
 
-$sql = "SELECT `OPT`,`SUM` FROM store,product WHERE DT>'$last_dt' AND DT<'$dt_now' AND store.PRODUCT=product.ID AND product.GROUP!=7 AND STATUS=2 AND DL='1'";
+$sql = "SELECT `OPT`,`SUM` FROM store,product WHERE DT>'$last_dt' AND DT<'$dt_now' AND store.PRODUCT=product.ID AND product.GROUP!=7 AND store.STATUS=2";
 $atu = mysql_query($sql);
 while ($aut = mysql_fetch_array($atu)) {
     $sum_obor += ($aut["SUM"] - $aut["OPT"]);
