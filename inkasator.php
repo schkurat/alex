@@ -79,7 +79,7 @@ while ($aut = mysql_fetch_array($atu)) {
     $sum_obor += ($aut["SUM"] - $aut["OPT"]);
 }
 mysql_free_result($atu);
-$salary = (($sum_obor * 3) / 100) / $worker;
+$salary = (($sum_obor * 30) / 100) / $worker;
 /*------------------------*/
 
 /*----- stage #8----------*/
