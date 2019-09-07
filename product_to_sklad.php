@@ -7,7 +7,7 @@ $(document).ready(function(){
     $('#skod').bind('blur',net_fokusa);
     $('#smopt').keyup(natsenka);
     $("#persent").keyup(natsenka);
-    $("#smprod").keyup(optovaya);
+//    $("#smprod").keyup(optovaya);
     $("#skod").focus();
     $("#group_pr").change(persent);
     $("#new_product").keyup(function(){
@@ -53,16 +53,16 @@ function natsenka(eventObj){
     nats=roundPlus(nats,1);
     $("#smprod").val(nats);	
 }      
-function optovaya(eventObj){
-    var postav = $("#provider").val();
-    if(postav == 36){
-        var sm_prod = $("#smprod").val()*100;
-        var prots = parseInt($("#persent").val())+100;
-        var sm_opt = sm_prod/prots;
-        sm_opt = roundPlus(sm_opt,2);
-	$("#smopt").val(sm_opt);
-    }	
-}  
+//function optovaya(eventObj){
+//    var postav = $("#provider").val();
+//    if(postav == 36){
+//        var sm_prod = $("#smprod").val()*100;
+//        var prots = parseInt($("#persent").val())+100;
+//        var sm_opt = sm_prod/prots;
+//        sm_opt = roundPlus(sm_opt,2);
+//	$("#smopt").val(sm_opt);
+//    }	
+//}  
 function net_fokusa(eventObj){
     $.ajax({
 	type: "POST",
