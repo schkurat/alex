@@ -249,7 +249,10 @@ if($stat == 1){
         $pr.='<tr>
             <td align="center"><a href="store.php?filter=edit_sklad&kl='.$aut["ID"].'&invoice='.$invoice.'"><img src="images/b_edit.png" border="0"></a></td>
             <td>'.$num_line.'</td>
-            <td align="center"><a href="print_kod.php?invoice='.$invoice.'&scd='.$aut["SKOD"].'"><img src="images/print.png" border="0"></a></td>	
+            <td>
+            <a href="print_kod.php?invoice='.$invoice.'&scd='.$aut["SKOD"].'&size=3"><img src="images/print.png" border="0">2x3</a><br>
+            <a href="print_kod.php?invoice='.$invoice.'&scd='.$aut["SKOD"].'&size=4"><img src="images/print.png" border="0">2.5x4</a>
+            </td>	
             <td align="center">'.$aut["SKOD"].'</td>	
             <td>'.$aut["PROVIDER"].'</td>
             <td align="center">'.$aut["PRODUCT"].'</td>
