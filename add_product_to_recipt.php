@@ -8,6 +8,7 @@ include("function.php");
 $recipt = $_POST['recipt'];
 $skod = trim($_POST['skod']);
 $kol = str_replace(",", ".", $_POST['kol']);
+$kol = ($kol < 0) ? $kol * (-1) : $kol;
 $money = $_POST['money'];
 if (isset($_POST['kap'])) $kap = '1';
 else $kap = '0';
