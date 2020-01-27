@@ -57,8 +57,8 @@ switch ($stat) {
             echo "Запис не внесений до БД";
         }
         $costprice = str_replace(",", ".", $_POST['costprice']);
-        //$ath=mysql_query("UPDATE `product` SET `cost`=IF(cost>'$smprod',cost,'$smprod') WHERE product.ID='$product' AND product.DL='1'");
-        $ath = mysql_query("UPDATE `product` SET `cost`='$costprice' WHERE product.ID='$product' AND product.DL='1'");
+        $ath=mysql_query("UPDATE `product` SET `cost`=IF('$costprice'>'$smprod','$costprice','$smprod') WHERE product.ID='$product' AND product.DL='1'");
+       // $ath = mysql_query("UPDATE `product` SET `cost`='$costprice' WHERE product.ID='$product' AND product.DL='1'");
         break;
 
     case 2:

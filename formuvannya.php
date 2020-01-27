@@ -56,40 +56,41 @@ while($aut=mysql_fetch_array($atu)){
     $smp = $aut["SUM"];
     $smpr = $kl*$smp;
     $status = $aut["STATUS"];
+    $last_sm = getSum($skod);
 
     $sql1 = "SELECT `id_product` FROM `balance` WHERE `id_product`='$id_product'"; 
     $atu1 = mysql_query($sql1);
     $num_rows = mysql_num_rows($atu1);
     if($num_rows != 0){
         if($status == 1){
-            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` + $kl,`sm`=IF(sm>'$smp',sm,'$smp') WHERE id_product='$id_product'");
+            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` + $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
         if($status == 4){
-            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` + $kl,`sm`=IF(sm>'$smp',sm,'$smp') WHERE id_product='$id_product'");
+            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` + $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
         if($status == 2){
-            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` - $kl,`sm`=IF(sm>'$smp',sm,'$smp') WHERE id_product='$id_product'");
+            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` - $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
         if($status == 3){
-            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` - $kl,`sm`=IF(sm>'$smp',sm,'$smp') WHERE id_product='$id_product'");
+            $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` - $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
     }
     else{
         if($status == 1){
-            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$smp')");
+            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");
         }
         if($status == 4){
-            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$smp')");
+            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");
         }
         if($status == 2){
             $kl = $kl*(-1); 
             $smpr = $smpr*(-1); 
-            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$smp')");
+            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");
         }
         if($status == 3){
             $kl = $kl*(-1);
             $smpr = $smpr*(-1);
-            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$smp')");
+            $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");
         }
     }
     mysql_free_result($atu1);
