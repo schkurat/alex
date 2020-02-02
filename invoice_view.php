@@ -36,10 +36,13 @@ $p = '<table class="zmview">
     <th>Оплата<br>з готівки</th>
     <!--<th>Дата<br>розрахунку</th>-->
     <th>Сума<br>постачальника</th>
+    <th>Залишок</th>
     <!--<th>Надійшло товару</th>-->
     <th>Копія</th>
 </tr>';
 
+$sm_balance = 0;
+$sm_provider =0;
 if ($typePeriod == 0) {
     $sql = "SELECT invoices.*,provider.NAIM FROM invoices,provider 
 	WHERE " . $flag . " AND invoices.dl='1' AND invoices.provider=provider.ID AND provider.DL='1' ORDER BY invoices.id";
@@ -75,6 +78,11 @@ while ($aut = mysql_fetch_array($atu)) {
         }
     }
     mysql_free_result($atu1);
+
+    $balance = $aut["sm_prov"] - $sum_smbal;
+    $balance = number_format($balance,2);
+    $sm_balance += $balance;
+    $sm_provider += $aut["sm_prov"];
     $p .= '<tr>
     <td align="center"><a href="store.php?filter=invoice_open&kl=' . $invoiceid . '&provider=' . $aut["NAIM"] . '"><img src="images/b_edit.png" border="0"></a></td>
     <td align="center"><a href="store.php?filter=pay_info&kl=' . $invoiceid . '&provider=' . $aut["NAIM"] . '"><img src="images/add.png" border="0"></a></td>    
@@ -84,11 +92,12 @@ while ($aut = mysql_fetch_array($atu)) {
 	<td align="center">' . $smbal . '<b>' . $sum_smbal . '</b></td>
 	<td align="center">' . $smcash . '<b>' . $sum_smcash . '</b></td>
 	<td align="center">' . $aut["sm_prov"] . '</td>
+	<td align="right" style="color: red;">' . $balance . '</td>
 	<td align="center">' . $skrepka . '</td>
 </tr>';
 }
 mysql_free_result($atu);
-$p .= '</table>';
+$p .= '<tr><th colspan="7">Всього</th><th>'.$sm_provider.'</th><th>'.$sm_balance.'</th><th></th></tr></table>';
 if ($kly > 0) echo $p;
 else echo '<table class="zmview" align="center"><tr><th style="font-size: 35px;"><b>Накладних не знайдено</b></th></tr></table>';
 ?>

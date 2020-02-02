@@ -39,7 +39,7 @@ while($aut=mysql_fetch_array($atu)){
     $skod = $aut["SKOD"];
     $id_product = $aut["id_product"];
     $kl = $aut["kl"];
-    $sm = $aut["sm"];
+    $sm = getSum($skod); //$aut["sm"];
     $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$sm')");
 }
 mysql_free_result($atu);
