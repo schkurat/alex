@@ -42,7 +42,8 @@ $p = '<table class="zmview">
 </tr>';
 
 $sm_balance = 0;
-$sm_provider =0;
+$sm_provider = 0;
+$sm_paid = 0;
 if ($typePeriod == 0) {
     $sql = "SELECT invoices.*,provider.NAIM FROM invoices,provider 
 	WHERE " . $flag . " AND invoices.dl='1' AND invoices.provider=provider.ID AND provider.DL='1' ORDER BY invoices.id";
@@ -78,10 +79,11 @@ while ($aut = mysql_fetch_array($atu)) {
         }
     }
     mysql_free_result($atu1);
+    $sm_paid += $sum_smbal;
 
     $balance = $aut["sm_prov"] - $sum_smbal;
-    $balance = number_format($balance,2);
     $sm_balance += $balance;
+    $balance = number_format($balance,2);
     $sm_provider += $aut["sm_prov"];
     $p .= '<tr>
     <td align="center"><a href="store.php?filter=invoice_open&kl=' . $invoiceid . '&provider=' . $aut["NAIM"] . '"><img src="images/b_edit.png" border="0"></a></td>
@@ -97,7 +99,7 @@ while ($aut = mysql_fetch_array($atu)) {
 </tr>';
 }
 mysql_free_result($atu);
-$p .= '<tr><th colspan="7">Всього</th><th>'.$sm_provider.'</th><th>'.$sm_balance.'</th><th></th></tr></table>';
+$p .= '<tr class="result"><th colspan="5">Всього</th><th class="number">' . $sm_paid . '</th><th></th><th class="number">'.$sm_provider.'</th><th class="number">'.$sm_balance.'</th><th></th></tr></table>';
 if ($kly > 0) echo $p;
 else echo '<table class="zmview" align="center"><tr><th style="font-size: 35px;"><b>Накладних не знайдено</b></th></tr></table>';
 ?>

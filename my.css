@@ -286,3 +286,6 @@ color:#666666
     transform: rotate(-90deg);
 
 }
+.result .number{
+	text-align: right;
+}
