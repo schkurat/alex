@@ -68,7 +68,7 @@ while($aut=mysql_fetch_array($atu)){
         if($status == 4){
             $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` + $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
-        if($status == 2){
+        if($status == 2 || $status == 5){
             $ath = mysql_query("UPDATE `balance` SET `KL`=`KL` - $kl,`sm`=$last_sm WHERE id_product='$id_product'");
         }
         if($status == 3){
@@ -82,7 +82,7 @@ while($aut=mysql_fetch_array($atu)){
         if($status == 4){
             $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");
         }
-        if($status == 2){
+        if($status == 2 || $status == 5){
             $kl = $kl*(-1); 
             $smpr = $smpr*(-1); 
             $ath = mysql_query("INSERT INTO `balance` (`skod`,`id_product`,`kl`,`sm`) VALUES('$skod','$id_product','$kl','$last_sm')");

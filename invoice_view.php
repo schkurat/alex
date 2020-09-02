@@ -34,6 +34,7 @@ $p = '<table class="zmview">
     <th>Дата<br>накладної</th>
     <th>Оплата<br>із залишку</th>
     <th>Оплата<br>з готівки</th>
+    <th>Повернення</th>
     <!--<th>Дата<br>розрахунку</th>-->
     <th>Сума<br>постачальника</th>
     <th>Залишок</th>
@@ -44,6 +45,7 @@ $p = '<table class="zmview">
 $sm_balance = 0;
 $sm_provider = 0;
 $sm_paid = 0;
+$sum_sm_back = 0;
 if ($typePeriod == 0) {
     $sql = "SELECT invoices.*,provider.NAIM FROM invoices,provider 
 	WHERE " . $flag . " AND invoices.dl='1' AND invoices.provider=provider.ID AND provider.DL='1' ORDER BY invoices.id";
@@ -65,6 +67,7 @@ while ($aut = mysql_fetch_array($atu)) {
     $smcash = '';
     $sum_smbal = 0;
     $sum_smcash = 0;
+    $sm_back = 0;
     $sql1 = "SELECT sm_bal, sm_cash, DATE_FORMAT(`dt`,'%d.%m.%Y') as dt FROM invoicespay WHERE invoice='$invoiceid' AND dl='1'";
 //echo $sql;
     $atu1 = mysql_query($sql1);
@@ -81,10 +84,20 @@ while ($aut = mysql_fetch_array($atu)) {
     mysql_free_result($atu1);
     $sm_paid += $sum_smbal;
 
-    $balance = $aut["sm_prov"] - $sum_smbal;
+    $sql1 = "SELECT store.NUMBER,store.OPT FROM store WHERE store.invoice='$invoiceid' AND store.STATUS='5' AND DL='1'";
+//echo $sql;
+    $atu1 = mysql_query($sql1);
+    while ($aut1 = mysql_fetch_array($atu1)) {
+        $sm_back += $aut1["NUMBER"] * $aut1["OPT"];
+        $sum_sm_back += $sm_back;
+    }
+    mysql_free_result($atu1);
+
+    $balance = $aut["sm_prov"] - $sum_smbal - $sm_back;
     $sm_balance += $balance;
     $balance = number_format($balance,2);
     $sm_provider += $aut["sm_prov"];
+
     $p .= '<tr>
     <td align="center"><a href="store.php?filter=invoice_open&kl=' . $invoiceid . '&provider=' . $aut["NAIM"] . '"><img src="images/b_edit.png" border="0"></a></td>
     <td align="center"><a href="store.php?filter=pay_info&kl=' . $invoiceid . '&provider=' . $aut["NAIM"] . '"><img src="images/add.png" border="0"></a></td>    
@@ -93,13 +106,14 @@ while ($aut = mysql_fetch_array($atu)) {
         <td align="center">' . german_date($aut["dt"]) . '</td>
 	<td align="center">' . $smbal . '<b>' . $sum_smbal . '</b></td>
 	<td align="center">' . $smcash . '<b>' . $sum_smcash . '</b></td>
+	<td align="center">' . $sm_back . '</td>
 	<td align="center">' . $aut["sm_prov"] . '</td>
 	<td align="right" style="color: red;">' . $balance . '</td>
 	<td align="center">' . $skrepka . '</td>
 </tr>';
 }
 mysql_free_result($atu);
-$p .= '<tr class="result"><th colspan="5">Всього</th><th class="number">' . $sm_paid . '</th><th></th><th class="number">'.$sm_provider.'</th><th class="number">'.$sm_balance.'</th><th></th></tr></table>';
+$p .= '<tr class="result"><th colspan="5">Всього</th><th class="number">' . $sm_paid . '</th><th></th><th class="number">' . $sum_sm_back . '</th><th class="number">'.$sm_provider.'</th><th class="number">'.$sm_balance.'</th><th></th></tr></table>';
 if ($kly > 0) echo $p;
 else echo '<table class="zmview" align="center"><tr><th style="font-size: 35px;"><b>Накладних не знайдено</b></th></tr></table>';
 ?>

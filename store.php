@@ -112,6 +112,7 @@ $dseg = date("d.m.Y");
                         <li <?php echo $spis; ?>><a href="store.php?filter=product_to_spis">Списання товару</a></li>
                         <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_backstore">Повернення від
                                 клієнта</a></li>
+                        <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_provider">Повернення постачальнику (поки не чіпати)</a></li>
                         <li <?php echo $view; ?>><a href="store.php?filter=store_info">Перегляд</a></li>
                         <li <?php echo $balance; ?>><a href="store.php?filter=sklad_info">Залишки</a></li>
                     </ul>
