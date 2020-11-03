@@ -19,6 +19,7 @@ $dseg = date("d.m.Y");
     <link rel="stylesheet" type="text/css" href="my.css"/>
     <link rel="stylesheet" type="text/css" href="menu.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
     <script src="datp/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="datp/jquery-ui.css"/>
     <script type="text/javascript" src="js/scriptbreaker-multiple-accordion-1.js"></script>
@@ -85,6 +86,21 @@ $dseg = date("d.m.Y");
                 $nakladni = '';
                 $vuruchka = 'style="display: none;"';
             }
+            if ($type == 'Ст.Продавець') {
+                $pruhid = '';
+                $prodaj = '';
+                $bil = 'style="display: none;"';
+                $spis = 'style="display: none;"';
+                $vorvrat = 'style="display: none;"';
+                $view = 'style="display: none;"';
+                $balance = '';
+                $payments = 'style="display: none;"';
+                $kasa = 'style="display: none;"';
+                $revision = 'style="display: none;"';
+                $dovidnuku = 'style="display: none;"';
+                $nakladni = 'style="display: none;"';
+                $vuruchka = 'style="display: none;"';
+            }
             if ($type == 'Директор' or $type == 'Програміст') {
                 $pruhid = '';
                 $prodaj = '';
@@ -112,7 +128,7 @@ $dseg = date("d.m.Y");
                         <li <?php echo $spis; ?>><a href="store.php?filter=product_to_spis">Списання товару</a></li>
                         <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_backstore">Повернення від
                                 клієнта</a></li>
-                        <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_provider">Повернення постачальнику (поки не чіпати)</a></li>
+                        <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_provider">Повернення постачальнику</a></li>
                         <li <?php echo $view; ?>><a href="store.php?filter=store_info">Перегляд</a></li>
                         <li <?php echo $balance; ?>><a href="store.php?filter=sklad_info">Залишки</a></li>
                     </ul>
