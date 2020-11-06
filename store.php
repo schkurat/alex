@@ -93,12 +93,27 @@ $dseg = date("d.m.Y");
                 $spis = 'style="display: none;"';
                 $vorvrat = 'style="display: none;"';
                 $view = 'style="display: none;"';
-                $balance = '';
+                $balance = 'style="display: none;"';
                 $payments = 'style="display: none;"';
                 $kasa = 'style="display: none;"';
                 $revision = 'style="display: none;"';
                 $dovidnuku = 'style="display: none;"';
                 $nakladni = 'style="display: none;"';
+                $vuruchka = 'style="display: none;"';
+            }
+            if ($type == 'Мл.Адміністратор') {
+                $pruhid = '';
+                $prodaj = '';
+                $bil = 'style="display: none;"';
+                $spis = 'style="display: none;"';
+                $vorvrat = 'style="display: none;"';
+                $view = 'style="display: none;"';
+                $balance = 'style="display: none;"';
+                $payments = 'style="display: none;"';
+                $kasa = 'style="display: none;"';
+                $revision = 'style="display: none;"';
+                $dovidnuku = '';
+                $nakladni = '';
                 $vuruchka = 'style="display: none;"';
             }
             if ($type == 'Директор' or $type == 'Програміст') {
@@ -133,7 +148,7 @@ $dseg = date("d.m.Y");
                         <li <?php echo $balance; ?>><a href="store.php?filter=sklad_info">Залишки</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Виручка</a>
+                <li <?php echo $kasa; ?>><a href="#">Виручка</a>
                     <ul>
                         <!--<li><a href="store.php?filter=new_earnings">Додати</a></li>
                         <li><a href="store.php?filter=seach_earnings">Перегляд</a></li>-->
