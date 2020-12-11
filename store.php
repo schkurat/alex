@@ -57,13 +57,14 @@ $dseg = date("d.m.Y");
                 exit();
             }
             if ($type == 'Продавці') {
-                $pruhid = 'style="display: none;"';
+                $pruhid = '';
                 $prodaj = '';
                 $bil = 'style="display: none;"';
                 $spis = 'style="display: none;"';
-                $vorvrat = 'style="display: none;"';
+                $vorvrat_customer = '';
+                $vorvrat_provider = 'style="display: none;"';
                 $view = 'style="display: none;"';
-                $balance = '';
+                $balance = 'style="display: none;"';
                 $payments = 'style="display: none;"';
                 $kasa = 'style="display: none;"';
                 $revision = 'style="display: none;"';
@@ -76,7 +77,8 @@ $dseg = date("d.m.Y");
                 $prodaj = '';
                 $bil = '';
                 $spis = '';
-                $vorvrat = '';
+                $vorvrat_customer = '';
+                $vorvrat_provider = '';
                 $view = '';
                 $balance = '';
                 $payments = '';
@@ -91,7 +93,8 @@ $dseg = date("d.m.Y");
                 $prodaj = '';
                 $bil = 'style="display: none;"';
                 $spis = 'style="display: none;"';
-                $vorvrat = 'style="display: none;"';
+                $vorvrat_customer = '';
+                $vorvrat_provider = 'style="display: none;"';
                 $view = 'style="display: none;"';
                 $balance = 'style="display: none;"';
                 $payments = 'style="display: none;"';
@@ -106,7 +109,8 @@ $dseg = date("d.m.Y");
                 $prodaj = '';
                 $bil = 'style="display: none;"';
                 $spis = 'style="display: none;"';
-                $vorvrat = 'style="display: none;"';
+                $vorvrat_customer = '';
+                $vorvrat_provider = 'style="display: none;"';
                 $view = 'style="display: none;"';
                 $balance = 'style="display: none;"';
                 $payments = 'style="display: none;"';
@@ -121,7 +125,8 @@ $dseg = date("d.m.Y");
                 $prodaj = '';
                 $bil = '';
                 $spis = '';
-                $vorvrat = '';
+                $vorvrat_customer = '';
+                $vorvrat_provider = '';
                 $view = '';
                 $balance = '';
                 $payments = '';
@@ -141,14 +146,14 @@ $dseg = date("d.m.Y");
                         </li>
                         <li <?php echo $bil; ?>><a href="store.php?filter=chek_info">Чеки</a></li>
                         <li <?php echo $spis; ?>><a href="store.php?filter=product_to_spis">Списання товару</a></li>
-                        <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_backstore">Повернення від
+                        <li <?php echo $vorvrat_customer; ?>><a href="store.php?filter=product_to_backstore">Повернення від
                                 клієнта</a></li>
-                        <li <?php echo $vorvrat; ?>><a href="store.php?filter=product_to_provider">Повернення постачальнику</a></li>
+                        <li <?php echo $vorvrat_provider; ?>><a href="store.php?filter=product_to_provider">Повернення постачальнику</a></li>
                         <li <?php echo $view; ?>><a href="store.php?filter=store_info">Перегляд</a></li>
                         <li <?php echo $balance; ?>><a href="store.php?filter=sklad_info">Залишки</a></li>
                     </ul>
                 </li>
-                <li <?php echo $kasa; ?>><a href="#">Виручка</a>
+                <li><a href="#">Виручка</a>
                     <ul>
                         <!--<li><a href="store.php?filter=new_earnings">Додати</a></li>
                         <li><a href="store.php?filter=seach_earnings">Перегляд</a></li>-->
