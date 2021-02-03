@@ -73,7 +73,7 @@ include "scriptu.php";
         <tr>
             <td>Номер нашої накладної:</td>
             <td>
-                <input id="number_invoice" type="text" name="number_invoice" value=""/>
+                <input id="number_invoice" type="text" name="number_invoice" value="" required/>
             </td>
         </tr>
         <tr>

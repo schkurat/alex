@@ -47,6 +47,7 @@ $sql2 = "SELECT `NUMBER`,`STATUS`,`DT`,`SUM` FROM `store` WHERE `SKOD`='".$skod.
         if($aut2["STATUS"] == '2') $status = 'Продажа ';
         if($aut2["STATUS"] == '3') $status = 'Списання ';
         if($aut2["STATUS"] == '4') $status = 'Повернення від клієнта ';
+        if($aut2["STATUS"] == '5') $status = 'Повернення постачальнику ';
         
         $p.='<td>'.$status.'</td>
             <td align="center">'.$aut2["NUMBER"].'</td>

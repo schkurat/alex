@@ -169,6 +169,7 @@ $dseg = date("d.m.Y");
                         <li><a href="store.php?filter=balance">Контроль залишків</a></li>
                         <li><a href="store.php?filter=save_balance_info">Збереження залишків</a></li>
                         <li><a href="store.php?filter=clean_balance_info">Видалення таблиці</a></li>
+                        <li><a href="store.php?filter=control_info">Контроль груп</a></li>
                     </ul>
                 </li>
                 <li <?php echo $dovidnuku; ?>><a href="#">Довідники</a>

@@ -274,7 +274,7 @@ function get_balance($skod)
     }
     mysql_free_result($atu2);
 
-    $sql2 = "SELECT SUM(`NUMBER`) AS RASHOD FROM `store` WHERE `SKOD`='" . $skod . "' AND DT>='$dt_bal' AND (`STATUS`='2' OR `STATUS`='3')";
+    $sql2 = "SELECT SUM(`NUMBER`) AS RASHOD FROM `store` WHERE `SKOD`='" . $skod . "' AND DT>='$dt_bal' AND (`STATUS`='2' OR `STATUS`='3' OR `STATUS`='5')";
     $atu2 = mysql_query($sql2);
     while ($aut2 = mysql_fetch_array($atu2)) {
         $rashod = (int)$aut2["RASHOD"];

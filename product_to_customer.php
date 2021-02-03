@@ -77,7 +77,7 @@ $("html").keydown(function(eventObject){
 <form action="add_product_to_recipt.php" name="myform" method="post">
 <table class="zmview">
 <tr>
-<th colspan="9" style="font-size: 26px;">Реалізація товару</th>
+<th colspan="8" style="font-size: 26px;">Реалізація товару</th>
 </tr>
 <tr>
 <td colspan="2">Штрих-код <input type="text" id="skod" name="skod" value="" required /></td>
@@ -89,7 +89,7 @@ $("html").keydown(function(eventObject){
 <input id="r2" type="radio" name="money" value="Карта" /><label for="r2">Карта</label><br>
 </td>
 <td align="center">Кас.ап.<br><input type="checkbox" id="kap" name="kap" value="1"></td>
-<td align="center" colspan="3"><input type="submit" id="submit" value="Додати"/></td>
+<td align="center" colspan="2"><input type="submit" id="submit" value="Додати"/></td>
 </tr>
 <tr>
 <th>№</th>
@@ -99,7 +99,6 @@ $("html").keydown(function(eventObject){
 <th>Кількість</th>
 <th>Всього</th>
 <th>Видал.</th>
-<th>На складі</th>
 <th>Кас.ап.</th>
 </tr>';
 $npp=0;
@@ -116,34 +115,34 @@ $npp++;
 if($aut["KA"] == '1') $pr_kap = 'так';
 else $pr_kap = 'ні';
 //---------------------------------
-$prihod = 0;
-$rashod = 0;
-$ostatok = 0;
-
-$sql2="SELECT `kl`,dt AS PR_BALANCE FROM `primary_balance` WHERE `id_product`='".$aut["ID_PROD"]."' ORDER BY dt DESC LIMIT 1";
-$atu2=mysql_query($sql2);
-  while($aut2=mysql_fetch_array($atu2))
-{
-    $prim_bal = $aut2["kl"];
-    $dt_bal = $aut2["PR_BALANCE"];
-}
-mysql_free_result($atu2);
-
-$sql2="SELECT SUM(`NUMBER`) AS PRIHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='1' OR `STATUS`='4')";
-$atu2=mysql_query($sql2);
-  while($aut2=mysql_fetch_array($atu2))
- {
-      $prihod=(int)$aut2["PRIHOD"];
-}
-mysql_free_result($atu2);
-$sql2="SELECT SUM(`NUMBER`) AS RASHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='2' OR `STATUS`='3')";
-$atu2=mysql_query($sql2);
-  while($aut2=mysql_fetch_array($atu2))
- {
-      $rashod=(int)$aut2["RASHOD"];
-}
-mysql_free_result($atu2);
-$ostatok = ($prim_bal + $prihod) - $rashod;
+//$prihod = 0;
+//$rashod = 0;
+//$ostatok = 0;
+//
+//$sql2="SELECT `kl`,dt AS PR_BALANCE FROM `primary_balance` WHERE `id_product`='".$aut["ID_PROD"]."' ORDER BY dt DESC LIMIT 1";
+//$atu2=mysql_query($sql2);
+//  while($aut2=mysql_fetch_array($atu2))
+//{
+//    $prim_bal = $aut2["kl"];
+//    $dt_bal = $aut2["PR_BALANCE"];
+//}
+//mysql_free_result($atu2);
+//
+//$sql2="SELECT SUM(`NUMBER`) AS PRIHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='1' OR `STATUS`='4')";
+//$atu2=mysql_query($sql2);
+//  while($aut2=mysql_fetch_array($atu2))
+// {
+//      $prihod=(int)$aut2["PRIHOD"];
+//}
+//mysql_free_result($atu2);
+//$sql2="SELECT SUM(`NUMBER`) AS RASHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='2' OR `STATUS`='3')";
+//$atu2=mysql_query($sql2);
+//  while($aut2=mysql_fetch_array($atu2))
+// {
+//      $rashod=(int)$aut2["RASHOD"];
+//}
+//mysql_free_result($atu2);
+//$ostatok = ($prim_bal + $prihod) - $rashod;
 //---------------------------------
 
 $p.='<tr">
@@ -156,7 +155,6 @@ $p.='<tr">
 <td><a href="#" class="go">
 <input type="hidden" name="modal'.$aut["ID"].'" value="kl='.$aut["ID"].'&recipt='.$recipt.'&money='.$money.'"/>    
 <img src="images/b_drop.png" border="0"></a></td>
-<td align="center">'.$ostatok.'</td>
 <td align="center">'.$pr_kap.'</td>
 </tr>';
 
@@ -165,10 +163,10 @@ $sm_recipt+=$aut["SUM"] * $aut["NUMBER"];
 }
 mysql_free_result($atu);
 $sm_recipt=number_format($sm_recipt,2);
-$p.='</form><tr class="vsogo"><th colspan="5" align="right">Всього по чеку:</th><th align="left" colspan="4"><input type="text" id="sm_rc" name="sm_rc" value="'.$sm_recipt.'" size="7" readonly/> грн.</th></tr>'
-        . '<tr class="green"><th colspan="5" align="right">Гроші покупця:</th><th align="left" colspan="4"><input type="text" id="kl_money" name="kl_money" size="7" /> грн.</th></tr>'
-        . '<tr class="yellow"><th colspan="5" align="right">Решта:</th><th align="left" colspan="4"><input type="text" id="reshta" name="reshta" size="7" readonly/> грн.</th></tr>'
-        . '<tr><td colspan="9" align="center">'
+$p.='</form><tr class="vsogo"><th colspan="5" align="right">Всього по чеку:</th><th align="left" colspan="3"><input type="text" id="sm_rc" name="sm_rc" value="'.$sm_recipt.'" size="7" readonly/> грн.</th></tr>'
+        . '<tr class="green"><th colspan="5" align="right">Гроші покупця:</th><th align="left" colspan="3"><input type="text" id="kl_money" name="kl_money" size="7" /> грн.</th></tr>'
+        . '<tr class="yellow"><th colspan="5" align="right">Решта:</th><th align="left" colspan="3"><input type="text" id="reshta" name="reshta" size="7" readonly/> грн.</th></tr>'
+        . '<tr><td colspan="8" align="center">'
         . '<form action="add_recipt_to_sklad.php" name="twoform" method="get">'
         . '<input type="hidden" name="recipt" value="'.$recipt.'"/>'
         . '<input type="hidden" id="man" name="man" value="'.$money.'"/>'
