@@ -26,7 +26,13 @@ if (isset($_GET['invoice'])) {
     $invoice = $_GET['invoice'];
     $flag .= "store.invoice='$invoice'";
 }
-if ($scd != '') $flag .= " AND  store.SKOD='$scd'";
+if ($scd != ''){
+    if (empty($flag)){
+        $flag .= "product.SKOD='$scd'";
+    }else{
+        $flag .= " AND  store.SKOD='$scd'";
+    }
+}
 $size = $_GET['size'];
 
 $db = mysql_connect("localhost", $lg, $pas);
@@ -42,16 +48,21 @@ require('tfpdf/ean13.php');
 $pdf = new PDF_EAN13();
 $pdf->AddFont('dejavu', '', 'DejaVuSans.ttf', true);
 
-$sql = "SELECT store.*,product.NAIM AS PROD FROM store,product 
+if(empty($invoice)){
+    $sql = "SELECT product.SKOD,product.NAIM AS PROD FROM product 
+	WHERE " . $flag . " AND product.DL='1'";
+}else{
+    $sql = "SELECT store.*,product.NAIM AS PROD FROM store,product 
 	WHERE " . $flag . " AND store.STATUS='1' AND store.DL='1' AND store.PRODUCT=product.ID 
 	AND product.DL='1' ORDER BY store.ID DESC";
+}
 //echo $sql;
 $atu = mysql_query($sql);
 while ($aut = mysql_fetch_array($atu)) {
     $product = $aut["PROD"];
     $skod = $aut["SKOD"];
-    $kl = $aut["NUMBER"];
-    $kprod = $aut["PRODUCT"];
+    $kl = (empty($invoice))? 1: $aut["NUMBER"];
+    //$kprod = $aut["PRODUCT"];
 
     if (fract($kl) != 0) $kl = 1;
 
@@ -96,4 +107,4 @@ if (mysql_close($db)) {
 }
 
 $pdf->Output('kod.pdf', 'I');
-?>
+

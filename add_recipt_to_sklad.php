@@ -15,6 +15,7 @@ if (!@mysql_select_db(magazin, $db)) {
     echo("Не завантажена таблиця");
     exit();
 }
+$kred = null;
 $sql = "SELECT resipt_all.* FROM resipt_all WHERE resipt_all.ID_RESIPT='$recipt' AND resipt_all.DL='1'";
 //echo $sql;
 $atu = mysql_query($sql);
@@ -24,19 +25,27 @@ while ($aut = mysql_fetch_array($atu)) {
     $product = $aut["PRODUCT"];
     $klprod = $aut["NUMBER"];
     $smprod = $aut["SUM"];
+    $sm_bonus = $aut["SUM_BONUS"];
     $smopt = $aut["OPT"];
     $dt = $aut["DT"];
     $ka = $aut["KA"];
+    $receipt = $aut["ID_RESIPT"];
+
+    if($sm_bonus > 0){
+        $kred = true;
+        $smprod = $sm_bonus;
+    }
+
     $sm_recipt += $klprod * $smprod;
-    $ath1 = mysql_query("INSERT INTO store (SKOD,PROVIDER,PRODUCT,NUMBER,OPT,SUM,DT,STATUS,KA) 
-    VALUES('$skod','$provider','$product','$klprod','$smopt','$smprod','$dt','2','$ka');");
+    $ath1 = mysql_query("INSERT INTO store (SKOD,PROVIDER,PRODUCT,NUMBER,OPT,SUM,DT,STATUS,RECEIPT,KA) 
+    VALUES('$skod','$provider','$product','$klprod','$smopt','$smprod','$dt','2','$receipt','$ka');");
     if (!$ath1) {
         echo "Запис не внесений до БД";
     }
 }
 mysql_free_result($atu);
 
-$ath1 = mysql_query("UPDATE resipt SET SUM='$sm_recipt',DT=NOW(),MONEY='$money' WHERE resipt.ID='$recipt'");
+$ath1 = mysql_query("UPDATE resipt SET SUM='$sm_recipt',DT=NOW(),MONEY='$money',KREDIT='$kred' WHERE resipt.ID='$recipt'");
 if (!$ath1) {
     echo "Запис не скоригований";
 }

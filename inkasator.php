@@ -13,7 +13,7 @@ mysql_free_result($atu);
 /*------------------------*/
 
 /*----- stage #2----------*/
-$sql = "SELECT SUM(`SUM`) AS SM_N FROM resipt WHERE DT>'$last_dt' AND (MONEY='Готівка' OR MONEY='')";
+$sql = "SELECT SUM(`SUM`) AS SM_N FROM resipt WHERE DT>'$last_dt' AND KREDIT=FALSE AND (MONEY='Готівка' OR MONEY='')";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
 while ($aut = mysql_fetch_array($atu)) {
@@ -23,7 +23,7 @@ mysql_free_result($atu);
 /*------------------------*/
 
 /*----- stage #3----------*/
-$sql = "SELECT SUM(`SUM`) AS SM_K FROM resipt WHERE DT>'$last_dt' AND MONEY='Карта'";
+$sql = "SELECT SUM(`SUM`) AS SM_K FROM resipt WHERE DT>'$last_dt' AND KREDIT=FALSE AND MONEY='Карта'";
 //echo $sql.'<br>';
 $atu = mysql_query($sql);
 while ($aut = mysql_fetch_array($atu)) {

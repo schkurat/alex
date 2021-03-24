@@ -6,14 +6,19 @@ include_once "function.php";
 //$card='';
 //if($money=='Готівка') $cash='checked';
 //else $card='checked';
-if(isset($_GET['recipt'])) $recipt=$_GET['recipt'];
-else{
-$ath1=mysql_query("INSERT INTO resipt(`DT`,`SELLER`,`MONEY`) VALUES(NOW(),'$lg','$money');");
-if(!$ath1){echo "Запис не внесений до БД";} 
-$recipt=mysql_insert_id();}
+if (isset($_GET['recipt'])) $recipt = $_GET['recipt'];
+else {
+    $ath1 = mysql_query("INSERT INTO resipt(`DT`,`SELLER`,`MONEY`) VALUES(NOW(),'$lg','$money');");
+    if (!$ath1) {
+        echo "Запис не внесений до БД";
+    }
+    $recipt = mysql_insert_id();
+}
 $sm_recipt = 0;
+$seller = (isset($_GET['seller']) && !empty($_GET['seller']))? '<b>Продає:</b> ' . $_GET['seller']: '';
+$customer = (isset($_GET['customer']) && !empty($_GET['customer']))? '<b>Купує:</b> ' . $_GET['customer']: '';
 
-$p='
+$p = '
 <script language="JavaScript">
 $(document).ready(function() {
 $("#skod").focus();
@@ -40,8 +45,6 @@ $("#overlay").fadeOut(400);
 }
 );
 });
-
-
 });
 function radio_click(){
 if($("input[name=money]:checked").val()=="Готівка") {
@@ -77,14 +80,14 @@ $("html").keydown(function(eventObject){
 <form action="add_product_to_recipt.php" name="myform" method="post">
 <table class="zmview">
 <tr>
-<th colspan="8" style="font-size: 26px;">Реалізація товару</th>
+<th colspan="9" style="font-size: 26px;">Реалізація товару</th>
 </tr>
 <tr>
 <td colspan="2">Штрих-код <input type="text" id="skod" name="skod" value="" required /></td>
 <td>Кількість <input type="text" name="kol" value="1" size="7" required />
-<input type="hidden" name="recipt" value="'.$recipt.'" size="7"/>
+<input type="hidden" name="recipt" value="' . $recipt . '" size="15"/>
 </td>
-<td colspan="2">
+<td colspan="3">
 <input id="r1" type="radio" name="money" value="Готівка" checked/><label for="r1">Готівка</label><br>
 <input id="r2" type="radio" name="money" value="Карта" /><label for="r2">Карта</label><br>
 </td>
@@ -96,83 +99,63 @@ $("html").keydown(function(eventObject){
 <th>Штрих-код</th>
 <th>Назва</th>
 <th>Вартість</th>
+<th>Бонусна</th>
 <th>Кількість</th>
 <th>Всього</th>
 <th>Видал.</th>
 <th>Кас.ап.</th>
 </tr>';
-$npp=0;
+$npp = 0;
 $sql = "SELECT resipt_all.`ID`,resipt_all.`ID_RESIPT`,resipt_all.`SKOD`,resipt_all.`PRODUCT` AS ID_PROD,resipt_all.`KA`,
-resipt_all.`PROVIDER`,product.NAIM AS PRODUCT,SUM(resipt_all.`NUMBER`) AS NUMBER,resipt_all.`SUM`,
+resipt_all.`PROVIDER`,product.NAIM AS PRODUCT,SUM(resipt_all.`NUMBER`) AS NUMBER,resipt_all.`SUM`,resipt_all.`SUM_BONUS`,
 resipt_all.`DT`,resipt_all.`STATUS` FROM resipt_all,product 
 WHERE resipt_all.ID_RESIPT='$recipt' AND resipt_all.PRODUCT=product.ID AND product.DL='1' AND resipt_all.DL='1' 
 GROUP BY resipt_all.SKOD ORDER BY resipt_all.ID DESC";
 //echo $sql;
- $atu=mysql_query($sql);
-  while($aut=mysql_fetch_array($atu))
- {	
-$npp++;
-if($aut["KA"] == '1') $pr_kap = 'так';
-else $pr_kap = 'ні';
-//---------------------------------
-//$prihod = 0;
-//$rashod = 0;
-//$ostatok = 0;
-//
-//$sql2="SELECT `kl`,dt AS PR_BALANCE FROM `primary_balance` WHERE `id_product`='".$aut["ID_PROD"]."' ORDER BY dt DESC LIMIT 1";
-//$atu2=mysql_query($sql2);
-//  while($aut2=mysql_fetch_array($atu2))
-//{
-//    $prim_bal = $aut2["kl"];
-//    $dt_bal = $aut2["PR_BALANCE"];
-//}
-//mysql_free_result($atu2);
-//
-//$sql2="SELECT SUM(`NUMBER`) AS PRIHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='1' OR `STATUS`='4')";
-//$atu2=mysql_query($sql2);
-//  while($aut2=mysql_fetch_array($atu2))
-// {
-//      $prihod=(int)$aut2["PRIHOD"];
-//}
-//mysql_free_result($atu2);
-//$sql2="SELECT SUM(`NUMBER`) AS RASHOD FROM `store` WHERE `SKOD`='".$aut["SKOD"]."' AND DT>='$dt_bal' AND (`STATUS`='2' OR `STATUS`='3')";
-//$atu2=mysql_query($sql2);
-//  while($aut2=mysql_fetch_array($atu2))
-// {
-//      $rashod=(int)$aut2["RASHOD"];
-//}
-//mysql_free_result($atu2);
-//$ostatok = ($prim_bal + $prihod) - $rashod;
-//---------------------------------
+$atu = mysql_query($sql);
+while ($aut = mysql_fetch_array($atu)) {
+    $npp++;
+    if ($aut["KA"] == '1') $pr_kap = 'так';
+    else $pr_kap = 'ні';
 
-$p.='<tr">
-<td align="center">'.$npp.'</td>	
-<td align="center">'.$aut["SKOD"].'</td>	
-<td>'.$aut["PRODUCT"].'</td>
-<td align="right">'.$aut["SUM"].'</td>
-<td align="right">'.$aut["NUMBER"].'</td>
-<td align="right">'.number_format($aut["SUM"] * $aut["NUMBER"],2,'.', '').'</td>
+    $all_item = ($aut["SUM_BONUS"] > 0)? $aut["SUM_BONUS"] * $aut["NUMBER"]: $aut["SUM"] * $aut["NUMBER"];
+
+    $p .= '<tr">
+<td align="center">' . $npp . '</td>	
+<td align="center">' . $aut["SKOD"] . '</td>	
+<td>' . $aut["PRODUCT"] . '</td>
+<td align="right">' . $aut["SUM"] . '</td>
+<td align="right">' . $aut["SUM_BONUS"] . '</td>
+<td align="right">' . $aut["NUMBER"] . '</td>
+<td align="right">' . number_format($all_item, 2, '.', '') . '</td>
 <td><a href="#" class="go">
-<input type="hidden" name="modal'.$aut["ID"].'" value="kl='.$aut["ID"].'&recipt='.$recipt.'&money='.$money.'"/>    
+<input type="hidden" name="modal' . $aut["ID"] . '" value="kl=' . $aut["ID"] . '&recipt=' . $recipt . '&money=' . $money . '"/>    
 <img src="images/b_drop.png" border="0"></a></td>
-<td align="center">'.$pr_kap.'</td>
+<td align="center">' . $pr_kap . '</td>
 </tr>';
 
-$sm_recipt+=$aut["SUM"] * $aut["NUMBER"];
+    $sm_recipt += $all_item;
 
 }
 mysql_free_result($atu);
-$sm_recipt=number_format($sm_recipt,2);
-$p.='</form><tr class="vsogo"><th colspan="5" align="right">Всього по чеку:</th><th align="left" colspan="3"><input type="text" id="sm_rc" name="sm_rc" value="'.$sm_recipt.'" size="7" readonly/> грн.</th></tr>'
-        . '<tr class="green"><th colspan="5" align="right">Гроші покупця:</th><th align="left" colspan="3"><input type="text" id="kl_money" name="kl_money" size="7" /> грн.</th></tr>'
-        . '<tr class="yellow"><th colspan="5" align="right">Решта:</th><th align="left" colspan="3"><input type="text" id="reshta" name="reshta" size="7" readonly/> грн.</th></tr>'
-        . '<tr><td colspan="8" align="center">'
-        . '<form action="add_recipt_to_sklad.php" name="twoform" method="get">'
-        . '<input type="hidden" name="recipt" value="'.$recipt.'"/>'
-        . '<input type="hidden" id="man" name="man" value="'.$money.'"/>'
-        . '<input style="font-size: 22px;" type="submit" id="addroz" value="Розрахувати"/>'
-        . '</form>'
-        . '</td></tr></table>';
+$sm_recipt = number_format($sm_recipt, 2);
+$p .= '</form><tr class="vsogo"><th colspan="6" align="right">Всього по чеку:</th><th align="left" colspan="3"><input type="text" id="sm_rc" name="sm_rc" value="' . $sm_recipt . '" size="7" readonly/> грн.</th></tr>'
+    . '<tr class="green"><th colspan="6" align="right">Гроші покупця:</th><th align="left" colspan="3"><input type="text" id="kl_money" name="kl_money" size="7" /> грн.</th></tr>'
+    . '<tr class="yellow"><th colspan="6" align="right">Решта:</th><th align="left" colspan="3"><input type="text" id="reshta" name="reshta" size="7" readonly/> грн.</th></tr>'
+    . '<tr><td colspan="9" align="center" style="background: orange;">Кредит</td></tr>'
+    . '<tr><td colspan="9">'
+    . '<form action="check_credit.php" name="myformnext" method="post" style="margin: 0;">'
+    . 'Продав: <input type="password" name="kr_seller" size="10" value=""> '
+    . 'Купив: <input type="password" name="kr_customer" size="10" value=""> <input type="hidden" name="receipt" value="' . $recipt . '" size="15"/>'
+    . '<input id="check_kredit" type="submit" value="Застосувати"> <p id="kr_result" style="margin: auto;">'. $seller .' ' . $customer . '</p>'
+    . '</form></td></tr>'
+    . '<tr><td colspan="9" align="center">'
+    . '<form action="add_recipt_to_sklad.php" name="twoform" method="get">'
+    . '<input type="hidden" name="recipt" value="' . $recipt . '"/>'
+    . '<input type="hidden" id="man" name="man" value="' . $money . '"/>'
+    . '<input style="font-size: 22px;margin-top: 20px;" type="submit" id="addroz" value="Розрахувати"/>'
+    . '</form>'
+    . '</td></tr></table>';
 
 $p .= '
 <div id="modal_form"><!-- Сaмo oкнo --> 
@@ -186,5 +169,3 @@ $p .= '
 </div>
 <div id="overlay"></div><!-- Пoдлoжкa -->';
 echo $p;
-//. '<a href="add_recipt_to_sklad.php?recipt='.$recipt.'&money='.$money.'">'</a>
-?>

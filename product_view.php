@@ -1,32 +1,55 @@
 <?php
 include_once "function.php";
-
-$p='<table class="zmview">
-<tr>
-<th class="add_record"><a href="store.php?filter=new_product"><img src="images/add.png" border="0"></a></th>
-<th>№</th>
-<th>Штрих-код</th>
-<th>Назва</th>
-<th>Ціна</th>
-<th>Група</th>
-</tr>';
-
-$sql = "SELECT product.ID,product.SKOD,product.NAIM AS PROD,product.cost,group_product.NAIM AS GR FROM product,group_product 
-WHERE product.DL='1' AND group_product.DL='1' AND product.GROUP=group_product.ID 
-ORDER BY group_product.NAIM COLLATE utf8_unicode_ci,product.NAIM COLLATE utf8_unicode_ci";
-$atu=mysql_query($sql);
-  while($aut=mysql_fetch_array($atu))
- {		
-$p.='<tr>    
-<td align="center"><a href="store.php?filter=edit_product&kl='.$aut["ID"].'"><img src="images/b_edit.png" border="0"></a></td>	
-<td align="center">'.$aut["ID"].'</td>
-    <td>'.$aut["SKOD"].'</td>
-    <td>'.$aut["PROD"].'</td>
-    <td>'.$aut["cost"].'</td>
-    <td>'.$aut["GR"].'</td>
-    </tr>';
-}
-mysql_free_result($atu);
-$p.='</table>';
-echo $p; 
 ?>
+<br>
+<div>
+    Штрих код: <input type="text" name="search_code" id="search_code" value="">
+    Назва: <input type="text" name="search_product" id="search_product" value="">
+    Група: <input type="text" name="search_group" id="search_group" value="">
+</div><br>
+<div id="search_result">
+
+</div>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            let code = $('#search_code');
+            let product = $('#search_product');
+            let group = $('#search_group');
+            let search_result = $('#search_result');
+
+            code.keyup(function (){
+                if(code.val().length > 8){
+                    net_fokusa();
+                }
+            });
+            product.keyup(function (){
+                if(product.val().length > 3){
+                    net_fokusa();
+                }
+            });
+            group.keyup(function (){
+                if(group.val().length > 3){
+                    net_fokusa();
+                }
+            });
+
+            function net_fokusa(eventObj) {
+                $.ajax({
+                    type: "POST",
+                    url: "search_product_in_catalog.php",
+                    data: 'code=' + code.val() + '&product=' + product.val() + '&group=' + group.val(),
+                    dataType: "html",
+                    success: function (html) {
+                        var reply = html;
+                        search_result.empty();
+                        search_result.append(reply);
+                    },
+                    error: function (html) {
+                        alert(html.error);
+                    }
+                });
+            }
+        }
+    );
+</script>

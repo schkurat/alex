@@ -306,3 +306,42 @@ function getSum($skod)
         return $sm_pr;
     } else return $sm_price;
 }
+
+function get_user($pas)
+{
+    $resp = null;
+    if ($pas) {
+        $sql2 = "SELECT id,pr,im,pb FROM `users` WHERE `users`.`pas` = '" . $pas . "' AND `users`.`DL`='1'";
+        $atu2 = mysql_query($sql2);
+        while ($aut2 = mysql_fetch_array($atu2)) {
+            $resp = $aut2;
+        }
+        mysql_free_result($atu2);
+    }
+    return $resp;
+}
+
+function get_kredit_settings()
+{
+    $resp = null;
+    $sql2 = "SELECT * FROM `kredit_settings` WHERE `kredit_settings`.`id` = 1";
+    $atu2 = mysql_query($sql2);
+    while ($aut2 = mysql_fetch_array($atu2)) {
+        $resp = $aut2;
+    }
+    mysql_free_result($atu2);
+    return $resp;
+}
+
+function get_sm_kredit_today($customer)
+{
+    $sql2 = "SELECT SUM(SUM_BONUS) AS SMB FROM `resipt_all` LEFT JOIN `store` ON `resipt_all`.`SKOD`=`store`.`SKOD` AND `resipt_all`.`ID_RESIPT`=`store`.`RECEIPT` 
+                WHERE DATE(`resipt_all`.`DT`)=CURRENT_DATE() AND `resipt_all`.`CUSTOMER`='$customer' AND `resipt_all`.`DL`='1' AND `store`.`DL`=1";
+    $atu2 = mysql_query($sql2);
+    while ($aut2 = mysql_fetch_array($atu2)) {
+        $resp = $aut2["SMB"];
+    }
+    mysql_free_result($atu2);
+    if(!$resp) $resp = 0;
+    return $resp;
+}

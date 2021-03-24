@@ -163,6 +163,12 @@ $dseg = date("d.m.Y");
                         <li <?php echo $vuruchka; ?>><a href="store.php?filter=cashtoboss">Здача каси</a></li>
                     </ul>
                 </li>
+                <li <?php echo $revision; ?>><a href="#">Кредити</a>
+                    <ul>
+                        <li><a href="store.php?filter=kredit_settinds_info">Налаштування</a></li>
+                        <li><a href="store.php?filter=kredit_info">Перегляд</a></li>
+                    </ul>
+                </li>
                 <li <?php echo $revision; ?>><a href="#">Ревізія</a>
                     <ul>
                         <li><a href="store.php?filter=formuvannya_info">Формування даних</a></li>
@@ -172,7 +178,7 @@ $dseg = date("d.m.Y");
                         <li><a href="store.php?filter=control_info">Контроль груп</a></li>
                     </ul>
                 </li>
-                <li <?php echo $dovidnuku; ?>><a href="#">Довідники</a>
+                <li><a href="#">Довідники</a>
                     <ul>
                         <li><a href="#">Групи товарів</a>
                             <ul>
@@ -195,7 +201,7 @@ $dseg = date("d.m.Y");
                     </ul>
                 </li>
 
-                <li <?php echo $nakladni; ?>><a href="#">Накладні</a>
+                <li <?php /*echo $nakladni;*/ ?>><a href="#">Накладні</a>
                     <ul>
                         <li><a href="store.php?filter=new_invoice">Додати</a></li>
                         <li><a href="store.php?filter=seach_invoices">Перегляд</a></li>

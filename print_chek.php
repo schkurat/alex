@@ -25,7 +25,7 @@ $pr = '<table style="border-collapse: collapse; width:55mm; font-size:12px;font-
         . '<tr><th colspan="2" style="font-size: 16px;border-bottom: 1px solid black;padding:10px 0px;">'
         . 'МАГАЗИН ПРОДУКТИ</th></tr>';
 
-$sql = "SELECT resipt.SUM,resipt.DT,SUM(resipt_all.NUMBER) AS KOL,resipt_all.SUM AS SM,product.NAIM AS NPROD 
+$sql = "SELECT resipt.SUM,resipt.DT,SUM(resipt_all.NUMBER) AS KOL,resipt_all.SUM AS SM, resipt_all.SUM_BONUS,product.NAIM AS NPROD 
     FROM resipt,resipt_all,product 
     WHERE resipt.ID='$chk' AND resipt.ID=resipt_all.ID_RESIPT AND resipt_all.PRODUCT=product.ID AND resipt_all.DL='1' 
     GROUP BY resipt_all.PRODUCT";
@@ -37,9 +37,11 @@ $chk_all_sum = $aut["SUM"];
 $chk_dt = german_date($aut["DT"]);
 $product = $aut["NPROD"];
 $prod_kl = (float)$aut["KOL"];
-$prod_cost = $aut["SM"];
+$prod_cost = ($aut["SUM_BONUS"]>0)? $aut["SUM_BONUS"]: $aut["SM"];
 $prod_cost_all = $prod_kl * $prod_cost;
 $prod_cost_all = number_format($prod_cost_all, 2);
+
+$b = ($aut["SUM_BONUS"]>0)? 'Бонусний': '';
 
 $pr2 .='<tr><td>'.$product.'</td><td align="right">'.$prod_kl.'*'.$prod_cost.' = '.$prod_cost_all.'</td></tr>';
 //$yy +=5;
@@ -49,7 +51,7 @@ $pr2 .='<tr><td>'.$product.'</td><td align="right">'.$prod_kl.'*'.$prod_cost.' =
 mysql_free_result($atu);
 $pr1 = '<tr style="border-bottom: 1px solid black;"><th>ЧЕК №'.$chk.'</th><th>'.$chk_dt.'</th></tr>';
 $pr3 = '<tr style="border-bottom: 1px solid black;border-top: 1px solid black;">'
-        . '<td style="padding:5px 0px;">Разом</td><td align="right">'.$chk_all_sum.'</td></tr>';
+        . '<td style="padding:5px 0px;">Разом</td><td align="right">'.$b. '  ' . $chk_all_sum.'</td></tr>';
 $pr4 = '<tr><th colspan="2">ДЯКУЄМО ЗА ПОКУПКУ!</th></tr>';
 
 $pr.=$pr1.$pr2.$pr3.$pr4.'</table>';
