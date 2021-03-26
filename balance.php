@@ -48,8 +48,8 @@ $("#skod").focus();
 </tr>';
 $npp=0;
 $sql = "SELECT balance.*,product.NAIM AS PRODUCT FROM balance,product 
-	WHERE balance.id_product=product.ID AND product.DL='1' ORDER BY balance.dt_rev DESC";
-//echo $sql;
+	WHERE balance.id_product=product.ID AND product.DL='1' AND (balance.kl + balance.rev)!=0 ORDER BY balance.dt_rev DESC";
+//echo $sql; AND (balance.kl + balance.rev)!=0
  $atu=mysql_query($sql);
   while($aut=mysql_fetch_array($atu))
  {	
