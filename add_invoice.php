@@ -13,6 +13,7 @@ $smbal=str_replace(",",".",$_POST['smbal']);
 $smcash=str_replace(",",".",$_POST['smcash']);
 $smprov=str_replace(",",".",$_POST['smprov']);
 //$smgot=str_replace(",",".",$_POST['smgot']);
+$type=$_POST['type'];
 $dt_pay = $dt.date(" H:i:s");
 $db=mysql_connect("localhost",$lg,$pas);
 if(!$db) echo "Не вiдбулося зєднання з базою даних";
@@ -23,7 +24,7 @@ if(!$db) echo "Не вiдбулося зєднання з базою даних"
    exit(); 
    }
 
-$ath1=mysql_query("INSERT INTO invoices (num_invoice,provider,sm_prov,dt) VALUES('$num_invoice','$provider','$smprov','$dt');");
+$ath1=mysql_query("INSERT INTO invoices (num_invoice,provider,type,sm_prov,dt) VALUES('$num_invoice','$provider','$type','$smprov','$dt');");
 	if(!$ath1){echo "Запис не внесений до БД";} 
 $id_inv=mysql_insert_id();
 

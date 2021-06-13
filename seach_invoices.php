@@ -24,6 +24,13 @@ include "scriptu.php";
             </td>
         </tr>
         <tr>
+            <td>Тип форми</td>
+            <td>
+                <input id="t0" type="radio" name="typeForm" value="1"/><label for="t0">Перша</label>
+                <input id="t1" type="radio" name="typeForm" value="2" checked/><label for="t1">Друга</label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 Постачальник
             </td>

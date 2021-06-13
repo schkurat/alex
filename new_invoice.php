@@ -54,6 +54,13 @@ include "scriptu.php";
             <td>Cума постачальника:</td>
             <td><input type="text" name="smprov" value=""/></td>
         </tr>
+        <tr>
+            <td>Тип форми:</td>
+            <td>
+                <input id="r0" type="radio" name="type" value="1"/><label for="r0">Перша</label>
+                <input id="r1" type="radio" name="type" value="2" checked/><label for="r1">Друга</label>
+            </td>
+        </tr>
         <!--<tr>
         <td>Надійшло товару:</td>
         <td><input type="text" name="smgot" value=""/></td>

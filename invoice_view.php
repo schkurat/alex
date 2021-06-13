@@ -3,6 +3,7 @@ include_once "function.php";
 
 $dt_now = date("Y-m-d");
 $typePeriod = (int)$_GET['typePeriod'];
+$typeForm = (int)$_GET['typeForm'];
 if (isset($_GET['npr'])) {
     $npr = date_bd($_GET['npr']);
     if (isset($_GET['kpr'])) {
@@ -26,6 +27,8 @@ if ($npr != "" and $kpr != "") {
     $npr = $dt_now;
     $kpr = $dt_now;
 }
+$flag .= " AND invoices.type='" . $typeForm . "'";
+
 $p = '<table class="zmview">
 <tr>
     <th colspan="2"><a href="print_invoice.php?npr=' . $npr . '&kpr=' . $kpr . '"><img src="images/print.png" border="0"></a></th>
