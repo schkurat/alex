@@ -1,5 +1,6 @@
 <?php
 include_once "function.php";
+$group = (empty($_GET['group'])) ? '' : $_GET['group'];
 
 $p='
 <script>
@@ -21,7 +22,11 @@ function saveToDatabase(editableObj,column,id) {
 </script>
 <script language="JavaScript">
 $(document).ready(function() {
-$("#skod").focus();
+    $("#skod").focus();
+    $("#group").change(function(){
+        let selectedGroup = $(this).children("option:selected").val();
+        window.location.replace("/store.php?filter=balance&group=" + selectedGroup);
+   });
 });
 </script>
 <form action="add_revision.php" name="myform" method="post">
@@ -32,9 +37,25 @@ $("#skod").focus();
 </tr>
 <tr>
 <td colspan="2">Штрих-код <input type="text" id="skod" name="skod" value="" required /></td>
-<td>Кількість <input type="text" name="kol" value="" size="7" required /></td>
-<td colspan="2" align="center"><input type="submit" id="submit" value="Додати"/></td>
-<td colspan="3"></td>
+<td>Кількість <input type="text" name="kol" value="" size="7" required />
+<input type="submit" id="submit" value="Додати"/>
+</td>
+<td colspan="5" align="center">
+Група
+<select name="group" id="group">
+   <option value="">Всі</option>';
+   $sql = "SELECT ID,NAIM FROM group_product WHERE DL='1' AND NAIM > '' ORDER BY NAIM";
+   $atu = mysql_query($sql);
+   while ($aut = mysql_fetch_array($atu)) {
+       if($group == $aut["ID"]){
+           $p .= '<option value="' . $aut["ID"] . '" selected>' . $aut["NAIM"] . '</option>';
+       }else{
+           $p .= '<option value="' . $aut["ID"] . '">' . $aut["NAIM"] . '</option>';
+       }
+   }
+   mysql_free_result($atu);
+   $p .= '</select>
+</td>
 </tr>
 <tr>
 <th>№</th>
@@ -46,9 +67,10 @@ $("#skod").focus();
 <th>Невистачає</th>
 <th>Сума нодостачі</th>
 </tr>';
+   $flag = (empty($group)) ? '' : "AND product.GROUP='" . $group . "'";
 $npp=0;
 $sql = "SELECT balance.*,product.NAIM AS PRODUCT FROM balance,product 
-	WHERE balance.id_product=product.ID AND product.DL='1' AND (balance.kl + balance.rev)!=0 ORDER BY balance.dt_rev DESC";
+	WHERE balance.id_product=product.ID AND product.DL='1' " . $flag . " AND (balance.kl + balance.rev)!=0 ORDER BY balance.dt_rev DESC";
 //echo $sql; AND (balance.kl + balance.rev)!=0
  $atu=mysql_query($sql);
   while($aut=mysql_fetch_array($atu))
