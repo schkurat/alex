@@ -11,23 +11,29 @@ if (isset($_GET['npr'])) {
         $provider = $_GET['provider'];
     }
 }
-if ($npr != "" and $kpr != "") {
-    if ($typePeriod == 0) {
-        $flag = "invoices.dt>='" . $npr . "' AND invoices.dt<='" . $kpr . "'";
-    } else {
-        $flag = "DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')>='" . $npr . "' AND DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')<='" . $kpr . "'";
-    }
-    if ($provider != '') $flag .= " AND  invoices.provider='$provider'";
-} else {
-    if ($typePeriod == 0) {
-        $flag = "invoices.dt='" . $dt_now . "'";
-    } else {
-        $flag = "DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')='" . $dt_now . "'";
-    }
-    $npr = $dt_now;
-    $kpr = $dt_now;
+if(isset($_GET['invoice']) and !empty($_GET['invoice'])){
+    $invoice = (int)$_GET['invoice'];
+    $flag = "invoices.id='" . $invoice . "'";
 }
-$flag .= " AND invoices.type='" . $typeForm . "'";
+else{
+    if ($npr != "" and $kpr != "") {
+        if ($typePeriod == 0) {
+            $flag = "invoices.dt>='" . $npr . "' AND invoices.dt<='" . $kpr . "'";
+        } else {
+            $flag = "DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')>='" . $npr . "' AND DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')<='" . $kpr . "'";
+        }
+        if ($provider != '') $flag .= " AND  invoices.provider='$provider'";
+    } else {
+        if ($typePeriod == 0) {
+            $flag = "invoices.dt='" . $dt_now . "'";
+        } else {
+            $flag = "DATE_FORMAT(invoicespay.dt,'%Y-%m-%d')='" . $dt_now . "'";
+        }
+        $npr = $dt_now;
+        $kpr = $dt_now;
+    }
+    $flag .= " AND invoices.type='" . $typeForm . "'";
+}
 
 $p = '<table class="zmview">
 <tr>

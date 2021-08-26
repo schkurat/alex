@@ -7,6 +7,10 @@ include "scriptu.php";
             <th colspan="2" align="center">Накладні за період</th>
         </tr>
         <tr>
+            <td>Накладна №</td>
+            <td><input name="invoice" type="text" value=""/></td>
+        </tr>
+        <tr>
             <td>Період</td>
             <td>
                 <input id="date" class="datepicker" name="npr" type="text" size="10" maxlength="10"
