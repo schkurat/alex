@@ -161,6 +161,7 @@ $dseg = date("d.m.Y");
                         <li><a href="store.php?filter=inkasator_info">Інкасація каси</a></li>
                         <li <?php echo $kasa; ?>><a href="store.php?filter=kasa_info">Перегляд каси</a></li>
                         <li <?php echo $vuruchka; ?>><a href="store.php?filter=cashtoboss">Здача каси</a></li>
+                        <li <?php echo $kasa; ?>><a href="store.php?filter=report_info">Загальний звіт</a></li>
                     </ul>
                 </li>
                 <li <?php echo $revision; ?>><a href="#">Кредити</a>

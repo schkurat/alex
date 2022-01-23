@@ -5,7 +5,7 @@ include "scriptu.php";
 <script type="text/javascript">
     $(document).ready(function () {
         $('#skod').bind('blur', net_fokusa);
-        $('#number_invoice').bind('blur', search_invoice);
+        //$('#number_invoice').bind('blur', search_invoice);
     });
 
     function net_fokusa(eventObj) {
@@ -28,23 +28,23 @@ include "scriptu.php";
         });
     }
 
-    function search_invoice(eventObj) {
-        $.ajax({
-            type: "POST",
-            url: "search_product_in_invoice.php",
-            data: 'kod=' + $("#skod").val() + '&inv=' + $("#number_invoice").val(),
-            dataType: "html",
-            success: function (html) {
-                let reply = html.split(":", 2);
-                $("#cost_product").val(reply[0] + ' грн.');
-                $("#provider").val(reply[1]);
-                $("#klprod").focus();
-            },
-            error: function (html) {
-                alert(html.error);
-            }
-        });
-    }
+    // function search_invoice(eventObj) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "search_product_in_invoice.php",
+    //         data: 'kod=' + $("#skod").val() + '&inv=' + $("#number_invoice").val(),
+    //         dataType: "html",
+    //         success: function (html) {
+    //             let reply = html.split(":", 2);
+    //             $("#cost_product").val(reply[0] + ' грн.');
+    //             $("#provider").val(reply[1]);
+    //             $("#klprod").focus();
+    //         },
+    //         error: function (html) {
+    //             alert(html.error);
+    //         }
+    //     });
+    // }
 </script>
 <form action="add_sklad.php" name="myform" method="post">
     <table align="" class="zmview">
@@ -67,15 +67,15 @@ include "scriptu.php";
             <td>Товар:</td>
             <td>
                 <input type="text" id="name_product" value="" readonly>
-                <input type="text" id="cost_product" name="cost_product" value="" readonly style="border: none;">
+<!--                <input type="text" id="cost_product" name="cost_product" value="" readonly style="border: none;">-->
             </td>
         </tr>
-        <tr>
-            <td>Номер нашої накладної:</td>
-            <td>
-                <input id="number_invoice" type="text" name="number_invoice" value="" required/>
-            </td>
-        </tr>
+<!--        <tr>-->
+<!--            <td>Номер нашої накладної:</td>-->
+<!--            <td>-->
+<!--                <input id="number_invoice" type="text" name="number_invoice" value="" required/>-->
+<!--            </td>-->
+<!--        </tr>-->
         <tr>
             <td>Кількість товару:</td>
             <td>

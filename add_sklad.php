@@ -24,10 +24,10 @@ if ($stat == '4') {
     $dt_back = date_bd($_POST['dt']) . ' ' . $time_back;
 }
 if($stat == '5'){
-    $smpover = $_POST['cost_product'];
+//    $smpover = $_POST['cost_product'];
     $time_back = $_POST['time_back'];
     $dt_back = date_bd($_POST['dt']) . ' ' . $time_back;
-    $number_invoice = $_POST['number_invoice'];
+//    $number_invoice = $_POST['number_invoice'];
 }
 $new_product = addslashes($_POST['new_product']);
 $new_product = trim($new_product);
@@ -91,8 +91,8 @@ switch ($stat) {
         }
         break;
     case 5:
-        $ath1 = mysql_query("INSERT INTO store (SKOD,invoice,PROVIDER,PRODUCT,NUMBER,OPT,DT,STATUS) 
-    VALUES('$skod','$number_invoice','$provider','$product','$klprod','$smpover','$dt_back','5');");
+        $ath1 = mysql_query("INSERT INTO store (SKOD,PROVIDER,PRODUCT,NUMBER,DT,STATUS) 
+    VALUES('$skod','$provider','$product','$klprod','$dt_back','5');");
         if (!$ath1) {
             echo "Запис не внесений до БД";
         }
